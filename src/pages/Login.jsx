@@ -1,12 +1,12 @@
-import {useContext, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import {assets} from "../assets/assets.js";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { assets } from "../assets/assets.js";
 import Input from "../components/Input.jsx";
-import {validateEmail} from "../util/validation.js";
+import { validateEmail } from "../util/validation.js";
 import axiosConfig from "../util/axiosConfig.jsx";
-import {API_ENDPOINTS} from "../util/apiEndpoints.js";
-import {AppContext} from "../context/AppContext.jsx";
-import {LoaderCircle} from "lucide-react";
+import { API_ENDPOINTS } from "../util/apiEndpoints.js";
+import { AppContext } from "../context/AppContext.jsx";
+import { LoaderCircle } from "lucide-react";
 import Header from "../components/Header.jsx";
 
 const Login = () => {
@@ -14,7 +14,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const {setUser} = useContext(AppContext);
+    const { setUser } = useContext(AppContext);
 
     const navigate = useNavigate();
 
@@ -42,13 +42,13 @@ const Login = () => {
                 email,
                 password,
             });
-            const {token, user} = response.data;
+            const { token, user } = response.data;
             if (token) {
                 localStorage.setItem("token", token);
                 setUser(user);
                 navigate("/dashboard");
             }
-        }catch(error) {
+        } catch (error) {
             if (error.response && error.response.data.message) {
                 setError(error.response.data.message);
             } else {
@@ -84,7 +84,7 @@ const Login = () => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 label="Email Address"
-                                placeholder="name@example.com"
+                                placeholder="imran@bauet.com"
                                 type="text"
                             />
 
@@ -102,13 +102,13 @@ const Login = () => {
                                 </p>
                             )}
 
-                            <button disabled={isLoading} className={`btn-primary w-full py-3 text-lg font-medium flex items-center justify-center gap-2 ${isLoading ? 'opacity-60 cursor-not-allowed': ''}`} type="submit">
+                            <button disabled={isLoading} className={`btn-primary w-full py-3 text-lg font-medium flex items-center justify-center gap-2 ${isLoading ? 'opacity-60 cursor-not-allowed' : ''}`} type="submit">
                                 {isLoading ? (
                                     <>
                                         <LoaderCircle className="animate-spin w-5 h-5" />
                                         Logging in...
                                     </>
-                                ):("LOGIN")}
+                                ) : ("LOGIN")}
                             </button>
 
                             <p className="text-sm text-slate-800 text-center mt-6">

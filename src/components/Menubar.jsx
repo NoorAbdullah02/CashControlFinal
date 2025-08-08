@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect, useContext } from "react";
-import {User, LogOut, X, Menu} from "lucide-react";
+import { User, LogOut, X, Menu } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import {assets} from "../assets/assets.js";
-import {AppContext} from "../context/AppContext.jsx";
+import { assets } from "../assets/assets.js";
+import { AppContext } from "../context/AppContext.jsx";
 import Sidebar from "./Sidebar.jsx";
 
 const Menubar = ({ activeMenu }) => {
@@ -61,7 +61,7 @@ const Menubar = ({ activeMenu }) => {
 
                 <div className="flex items-center gap-2">
                     <img src={assets.logo} alt="logo" className="h-10 w-10" />
-                    <span className="text-lg font-medium text-black truncate">Money Manager</span>
+                    <span className="text-lg font-medium text-black truncate">Cash Control</span>
                 </div>
             </div>
 
@@ -73,7 +73,7 @@ const Menubar = ({ activeMenu }) => {
                     rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-800
                     focus:ring-offset-2"
                 >
-                    <img src={user?.profileImageUrl} alt="profile" className="w-10 h-10 rounded-full"/>
+                    <img src={user?.profileImageUrl} alt="profile" className="w-10 h-10 rounded-full" />
                 </button>
 
                 {/* Dropdown Menu */}
@@ -83,13 +83,13 @@ const Menubar = ({ activeMenu }) => {
                         <div className="px-4 py-3 border-b border-gray-100">
                             <div className="flex items-center gap-3">
                                 <div className="flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full">
-                                    {user? (
+                                    {user ? (
                                         <>
                                             <img src={user.profileImageUrl} alt="profile" />
                                         </>
-                                    ): (
+                                    ) : (
                                         <>
-                                            <User className="w-4 h-4 text-purple-600"/>
+                                            <User className="w-4 h-4 text-purple-600" />
                                         </>
                                     )}
                                 </div>

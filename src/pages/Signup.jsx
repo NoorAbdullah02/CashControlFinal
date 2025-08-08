@@ -1,12 +1,12 @@
-import {useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import {assets} from "../assets/assets.js";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { assets } from "../assets/assets.js";
 import Input from "../components/Input.jsx";
-import {validateEmail} from "../util/validation.js";
+import { validateEmail } from "../util/validation.js";
 import axiosConfig from "../util/axiosConfig.jsx";
-import {API_ENDPOINTS} from "../util/apiEndpoints.js";
+import { API_ENDPOINTS } from "../util/apiEndpoints.js";
 import toast from "react-hot-toast";
-import {LoaderCircle} from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import ProfilePhotoSelector from "../components/ProfilePhotoSelector.jsx";
 import uploadProfileImage from "../util/uploadProfileImage.js";
 import Header from "../components/Header.jsx";
@@ -65,7 +65,7 @@ const Signup = () => {
                 toast.success("Profile created successfully.");
                 navigate("/login");
             }
-        } catch(err) {
+        } catch (err) {
             console.error('Something went wrong', err);
             setError(err.message);
         } finally {
@@ -99,7 +99,7 @@ const Signup = () => {
                                     value={fullName}
                                     onChange={(e) => setFullName(e.target.value)}
                                     label="Full Name"
-                                    placeholder="Jhon Doe"
+                                    placeholder="Imran Hasmi"
                                     type="text"
                                 />
 
@@ -107,7 +107,7 @@ const Signup = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     label="Email Address"
-                                    placeholder="name@example.com"
+                                    placeholder="noor@gmail.com"
                                     type="text"
                                 />
 
@@ -128,13 +128,13 @@ const Signup = () => {
                                 </p>
                             )}
 
-                            <button disabled={isLoading} className={`btn-primary w-full py-3 text-lg font-medium flex items-center justify-center gap-2 ${isLoading ? 'opacity-60 cursor-not-allowed': ''}`} type="submit">
+                            <button disabled={isLoading} className={`btn-primary w-full py-3 text-lg font-medium flex items-center justify-center gap-2 ${isLoading ? 'opacity-60 cursor-not-allowed' : ''}`} type="submit">
                                 {isLoading ? (
                                     <>
                                         <LoaderCircle className="animate-spin w-5 h-5" />
                                         Signing Up...
                                     </>
-                                ): (
+                                ) : (
                                     "SIGN UP"
                                 )}
                             </button>

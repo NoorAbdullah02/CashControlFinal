@@ -1,16 +1,18 @@
-import {useEffect, useState} from "react";
-import {prepareIncomeLineChartData} from "../util/util.js";
-import CustomLineChart from "./CustomLineChart.jsx";
-import {Plus} from "lucide-react";
+import { useEffect, useState } from "react";
+// import {prepareIncomeLineChartData} from "../util/util.js";
+// import CustomLineChart from "./CustomLineChart.jsx";
+import { Plus } from "lucide-react";
+import prepareIncomeLineChartData from "../util/prepareIncomeLineChartDataI";
+import CustomIncomeChart from "../util/CustomIncomeChartI";
 
-const IncomeOverview = ({transactions, onAddIncome}) => {
+const IncomeOverview = ({ transactions, onAddIncome }) => {
     const [chartData, setChartData] = useState([]);
     useEffect(() => {
         const result = prepareIncomeLineChartData(transactions);
         console.log(result);
         setChartData(result);
 
-        return () => {};
+        return () => { };
     }, [transactions]);
     return (
         <div className="card">
@@ -28,7 +30,7 @@ const IncomeOverview = ({transactions, onAddIncome}) => {
                 </button>
             </div>
             <div className="mt-10">
-                <CustomLineChart data={chartData} />
+                <CustomIncomeChart data={chartData} />
             </div>
         </div>
     )
