@@ -1,4 +1,4 @@
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Income from "./pages/Income.jsx";
 import Expense from "./pages/Expense.jsx";
@@ -6,7 +6,7 @@ import Category from "./pages/Category.jsx";
 import Filter from "./pages/Filter.jsx";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
-import {Toaster} from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import LandingPage from "./pages/LandingPage.jsx";
 
 const App = () => {
@@ -35,7 +35,7 @@ const Root = () => {
     return isAuthenticated ? (
         <Navigate to="/dashboard" />
     ) : (
-      <Navigate to="/home" />
+        <Navigate to="/home" />
     );
 }
 
