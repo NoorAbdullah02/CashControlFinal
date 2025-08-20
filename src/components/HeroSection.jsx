@@ -60,7 +60,7 @@ const HeroSection = () => {
                     </Link>
 
                     <Link
-                        to="/demo"
+                        to="/login"
                         className="group w-full sm:w-auto bg-white/80 backdrop-blur-xl border-2 border-gray-200 text-gray-700 px-12 py-5 rounded-xl font-bold text-lg hover:bg-white hover:border-gray-300 hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg"
                     >
                         <span>Watch Demo</span>

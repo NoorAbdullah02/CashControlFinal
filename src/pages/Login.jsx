@@ -164,7 +164,7 @@ const Login = () => {
                                             <button
                                                 type="button"
                                                 onClick={() => setShowPassword(!showPassword)}
-                                                className="absolute right-3 top-9 text-gray-400 hover:text-gray-600 transition-colors"
+                                                className="absolute right-3 top-8 text-gray-400 hover:text-gray-600 transition-colors"
                                             >
                                                 {showPassword ? (
                                                     <EyeOff className="h-5 w-5" />
@@ -198,8 +198,8 @@ const Login = () => {
                                     <button
                                         disabled={isLoading}
                                         className={`w-full py-4 px-6 text-white font-bold text-lg rounded-xl shadow-xl transition-all duration-300 ${isLoading
-                                                ? 'bg-gray-400 cursor-not-allowed'
-                                                : 'bg-gradient-to-r from-indigo-600 via-blue-600 to-emerald-600 hover:from-indigo-700 hover:via-blue-700 hover:to-emerald-700 transform hover:scale-105 hover:shadow-2xl'
+                                            ? 'bg-gray-400 cursor-not-allowed'
+                                            : 'bg-gradient-to-r from-indigo-600 via-blue-600 to-emerald-600 hover:from-indigo-700 hover:via-blue-700 hover:to-emerald-700 transform hover:scale-105 hover:shadow-2xl'
                                             }`}
                                         type="submit"
                                     >
