@@ -1,7 +1,7 @@
 import logo from "./logo.png";
-import login_bg from "./login-bg.png";
+import login_bg from "./login-bg.jpg";
 import landing from "./landing.png";
-import {Coins, FunnelPlus, LayoutDashboard, List, Wallet} from "lucide-react";
+import { Bot, Coins, FunnelPlus, LayoutDashboard, List, Wallet } from "lucide-react";
 
 export const assets = {
     logo,
@@ -40,4 +40,11 @@ export const SIDE_BAR_DATA = [
         icon: FunnelPlus,
         path: "/filter",
     },
+    {
+        id: "06",
+        label: "AI Assistant",
+        icon: Bot,
+        path: "/vapi-ai", // New route
+    },
+
 ];

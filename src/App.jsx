@@ -8,6 +8,8 @@ import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import { Toaster } from "react-hot-toast";
 import LandingPage from "./pages/LandingPage.jsx";
+import VapiAI from "./pages/VapiAI.jsx";
+
 
 const App = () => {
     return (
@@ -24,10 +26,11 @@ const App = () => {
                     <Route path="/filter" element={<Filter />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
+                    <Route path="/vapi-ai" element={<VapiAI />} />
                 </Routes>
             </BrowserRouter>
         </>
-    )
+    );
 }
 
 const Root = () => {
