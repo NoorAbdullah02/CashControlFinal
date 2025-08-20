@@ -148,7 +148,7 @@ const Header = () => {
                                     Cash Control
                                 </span>
                                 <span className="text-sm text-gray-500 font-medium -mt-1 group-hover:text-purple-600 transition-colors duration-300">
-                                    Master Your Money
+                                    Control Your Money
                                 </span>
                             </div>
                         </div>
