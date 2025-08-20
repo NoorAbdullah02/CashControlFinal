@@ -118,11 +118,15 @@ const Header = () => {
             </div>
 
             <header className={`fixed top-0 w-full z-50 transition-all duration-700 ${scrolled
-                    ? 'bg-white/95 backdrop-blur-2xl border-b border-purple-200/30 shadow-2xl shadow-purple-900/10'
-                    : 'bg-white/70 backdrop-blur-xl border-b border-white/20'
+                ? 'bg-white/95 backdrop-blur-2xl border-b border-purple-200/30 shadow-2xl shadow-purple-900/10'
+                : 'bg-white/70 backdrop-blur-xl border-b border-white/20'
                 }`}>
                 {/* Gradient line at top */}
-                <div className="h-1 bg-gradient-to-r from-purple-600 via-pink-600 via-blue-600 to-purple-600 bg-[length:200%_100%] animate-gradient"></div>
+                {/* <div className="h-1 bg-gradient-to-r from-purple-600 via-pink-600 via-blue-600 to-purple-600 bg-[length:200%_100%] animate-gradient"></div> */}
+                <div className="h-1 w-full rounded-full bg-gradient-to-r from-cyan-400 via-lime-400 to-fuchsia-500 bg-[length:200%_100%] animate-shimmer shadow-lg shadow-cyan-400/50"></div>
+                {/* <div className="h-1 w-full rounded-full bg-gradient-to-r from-amber-500 via-pink-500 to-red-600 bg-[length:200%_100%] animate-shimmer shadow-lg shadow-amber-500/40"></div> */}
+                {/* <div className="h-1 w-full rounded-full bg-gradient-to-r from-indigo-700 via-purple-600 via-fuchsia-600 to-sky-500 bg-[length:200%_100%] animate-shimmer shadow-lg shadow-fuchsia-500/40"></div> */}
+
 
                 <div className="container mx-auto px-8">
                     <div className="flex items-center justify-between h-24">
@@ -191,8 +195,8 @@ const Header = () => {
 
                 {/* Mobile Navigation */}
                 <div className={`lg:hidden transition-all duration-700 overflow-hidden ${isMenuOpen
-                        ? 'max-h-screen opacity-100 translate-y-0'
-                        : 'max-h-0 opacity-0 -translate-y-4'
+                    ? 'max-h-screen opacity-100 translate-y-0'
+                    : 'max-h-0 opacity-0 -translate-y-4'
                     }`}>
                     <div className="bg-white/95 backdrop-blur-2xl border-t border-purple-200/30 mx-6 mb-6 rounded-3xl shadow-2xl shadow-purple-900/10 overflow-hidden">
                         <div className="p-8">
