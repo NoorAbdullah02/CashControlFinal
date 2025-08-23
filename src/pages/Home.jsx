@@ -70,7 +70,7 @@ const Home = () => {
     return (
         <div>
             <Dashboard activeMenu="Dashboard">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6">
                     {/* Enhanced Header Section */}
                     <div className="mb-8">
                         <div className="bg-white rounded-3xl shadow-xl p-8 border-0 overflow-hidden relative">
