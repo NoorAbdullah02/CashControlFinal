@@ -1,6 +1,6 @@
-import {Layers2, Pencil} from "lucide-react";
+import { Layers2, Pencil } from "lucide-react";
 
-const CategoryList = ({categories, onEditCategory}) => {
+const CategoryList = ({ categories, onEditCategory }) => {
     return (
         <div className="card p-4">
             <div className="flex items-center justify-between mb-4">
@@ -12,7 +12,7 @@ const CategoryList = ({categories, onEditCategory}) => {
                 <p className="text-gray-500">
                     No categories added yet. Add some to get started!
                 </p>
-            ): (
+            ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {categories.map((category) => (
                         <div
@@ -24,7 +24,7 @@ const CategoryList = ({categories, onEditCategory}) => {
                                     <span className="text-2xl">
                                         <img src={category.icon} alt={category.name} className="h-5 w-5" />
                                     </span>
-                                ): (
+                                ) : (
                                     <Layers2 className="text-purple-800" size={24} />
                                 )}
                             </div>

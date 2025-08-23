@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import EmojiPickerPopup from "./EmojiPickerPopup.jsx";
 import Input from "./Input.jsx";
-import {LoaderCircle} from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 
-const AddIncomeForm = ({onAddIncome, categories}) => {
+const AddIncomeForm = ({ onAddIncome, categories }) => {
     const [income, setIncome] = useState({
         name: '',
         amount: '',
@@ -19,21 +19,21 @@ const AddIncomeForm = ({onAddIncome, categories}) => {
     }))
 
     const handleChange = (key, value) => {
-        setIncome({...income, [key]: value});
+        setIncome({ ...income, [key]: value });
     }
 
     const handleAddIncome = async () => {
         setLoading(true);
         try {
             await onAddIncome(income);
-        }finally {
+        } finally {
             setLoading(false);
         }
     }
 
     useEffect(() => {
         if (categories.length > 0 && !income.categoryId) {
-            setIncome((prev) => ({...prev, categoryId: categories[0].id}))
+            setIncome((prev) => ({ ...prev, categoryId: categories[0].id }))
         }
     }, [categories, income.categoryId]);
 
@@ -46,7 +46,7 @@ const AddIncomeForm = ({onAddIncome, categories}) => {
 
             <Input
                 value={income.name}
-                onChange={({target}) => handleChange('name', target.value)}
+                onChange={({ target }) => handleChange('name', target.value)}
                 label="Income Source"
                 placeholder="e.g., Salary, Freelance, Bonus"
                 type="text"
@@ -55,14 +55,14 @@ const AddIncomeForm = ({onAddIncome, categories}) => {
             <Input
                 label="Category"
                 value={income.categoryId}
-                onChange={({target}) => handleChange('categoryId', target.value)}
+                onChange={({ target }) => handleChange('categoryId', target.value)}
                 isSelect={true}
                 options={categoryOptions}
             />
 
             <Input
                 value={income.amount}
-                onChange={({target}) => handleChange('amount', target.value)}
+                onChange={({ target }) => handleChange('amount', target.value)}
                 label="Amount"
                 placeholder="e.g., 500.00"
                 type="number"
@@ -70,7 +70,7 @@ const AddIncomeForm = ({onAddIncome, categories}) => {
 
             <Input
                 value={income.date}
-                onChange={({target}) => handleChange('date', target.value)}
+                onChange={({ target }) => handleChange('date', target.value)}
                 label="Date"
                 placeholder=""
                 type="date"
@@ -83,10 +83,10 @@ const AddIncomeForm = ({onAddIncome, categories}) => {
                     className="add-btn add-btn-fill">
                     {loading ? (
                         <>
-                            <LoaderCircle className="w-4 h-4 animate-spin"/>
+                            <LoaderCircle className="w-4 h-4 animate-spin" />
                             Adding...
                         </>
-                    ): (
+                    ) : (
                         <>
                             Add Income
                         </>

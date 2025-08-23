@@ -188,7 +188,10 @@ const VapiAI = () => {
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef(null);
 
-    const API_KEY = "AIzaSyDoMVhmBOUfFfZ60qGj6TO1F8yyE0hdbBQ";
+    const API_KEY = "AIzaSyDoMVhmBOUfFfZ60qGj6TO1F8yyE0hdbBQ";  //Gemini API KEY
+
+    //const API_KEY = "sk-3d3b62e609de48b3bdf9c4f6f8c71881"; // DeepSick API Key
+
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -214,6 +217,7 @@ const VapiAI = () => {
         setIsLoading(true);
 
         try {
+            // For Gemini API
             // Replace with your actual Vapi API endpoint
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
                 method: "POST",
@@ -232,11 +236,43 @@ const VapiAI = () => {
                     ]
                 })
             });
+
+            // For Deeksiclk API
+
+            // const response = await fetch("https://api.deepseek.com/chat/completions", {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         "Authorization": `Bearer ${API_KEY}`
+            //     },
+            //     body: JSON.stringify({
+            //         model: "deepseek-chat",
+            //         messages: [
+            //             {
+            //                 role: "system",
+            //                 content: "You are a helpful AI financial assistant. Provide clear, accurate, and actionable financial advice."
+            //             },
+            //             {
+            //                 role: "user",
+            //                 content: currentInput
+            //             }
+            //         ],
+            //         stream: false
+            //     })
+            // });
+
             let botResponse;
+            // For Gemini API
             if (response.ok) {
                 const data = await response.json();
                 botResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "I received your message, but I'm having trouble processing it right now.";
             }
+
+            // For DeepSick API
+            // if (response.ok) {
+            //     const data = await response.json();
+            //     botResponse = data.choices?.[0]?.message?.content || "I received your message, but I'm having trouble processing it right now.";
+            // }
             else {
                 // Fallback response for demo purposes
                 botResponse = generateFinancialResponse(currentInput);
