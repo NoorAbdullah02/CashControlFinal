@@ -132,7 +132,7 @@ const ProductShowcase = () => {
                                     <Users className="h-6 w-6 text-white" />
                                 </div>
                                 <div className="text-4xl md:text-5xl font-black bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
-                                    150K+
+                                    500+
                                 </div>
                                 <div className="text-gray-700 font-semibold mb-2">Active Users</div>
                                 <div className="flex items-center justify-center gap-1">
@@ -150,7 +150,7 @@ const ProductShowcase = () => {
                                     <Star className="h-6 w-6 text-white fill-current" />
                                 </div>
                                 <div className="text-4xl md:text-5xl font-black bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-2">
-                                    $50M+
+                                    $1M+
                                 </div>
                                 <div className="text-gray-700 font-semibold mb-2">Tracked Safely</div>
                                 <div className="flex items-center justify-center gap-1">

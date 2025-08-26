@@ -215,8 +215,8 @@ const Signup = () => {
                                     <button
                                         disabled={isLoading}
                                         className={`w-full py-4 px-6 text-white font-bold text-lg rounded-xl shadow-xl transition-all duration-300 ${isLoading
-                                                ? 'bg-gray-400 cursor-not-allowed'
-                                                : 'bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-600 hover:from-blue-700 hover:via-indigo-700 hover:to-emerald-700 transform hover:scale-105 hover:shadow-2xl'
+                                            ? 'bg-gray-400 cursor-not-allowed'
+                                            : 'bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-600 hover:from-blue-700 hover:via-indigo-700 hover:to-emerald-700 transform hover:scale-105 hover:shadow-2xl'
                                             }`}
                                         type="submit"
                                     >
