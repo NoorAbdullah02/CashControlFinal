@@ -1,6 +1,8 @@
 //export const BASE_URL = "http://localhost:8080/api/v1.0";
 
-export const BASE_URL = "https://cash-control-api.onrender.com/api/v1.0";
+// export const BASE_URL = "https://cash-control-api.onrender.com/api/v1.0"; // Notification at Night First Time
+
+export const BASE_URL = "https://cash-control-final-api.onrender.com/api/v1.0";  // Second Time Notification at Night noor04;
 
 
 const CLOUDINARY_CLOUD_NAME = "dseibtclb";
