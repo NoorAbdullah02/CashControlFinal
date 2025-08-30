@@ -9,6 +9,7 @@ import Signup from "./pages/Signup.jsx";
 import { Toaster } from "react-hot-toast";
 import LandingPage from "./pages/LandingPage.jsx";
 import VapiAI from "./pages/VapiAI.jsx";
+import BrickBreaker from "./pages/BrickBreaker.jsx";
 
 
 const App = () => {
@@ -27,6 +28,8 @@ const App = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/vapi-ai" element={<VapiAI />} />
+                    <Route path="/brick-breaker" element={<BrickBreaker />} />
+
                 </Routes>
             </BrowserRouter>
         </>
