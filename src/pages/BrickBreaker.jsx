@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { Play, Pause, RotateCcw, Trophy, Maximize2, Minimize2, Volume2, VolumeX } from 'lucide-react';
+import { Play, Pause, RotateCcw, Trophy, Maximize2, Minimize2, Volume2, VolumeX, Monitor, Smartphone, ArrowRight } from 'lucide-react';
 import Dashboard from "../components/Dashboard.jsx";
 import { useUser } from "../hooks/useUser.jsx";
 
@@ -23,14 +23,148 @@ const POWER_TYPES = {
     LASER: { color: 'bg-purple-400', icon: '↑↑↑', effect: 'Laser Mode', duration: 250 }
 };
 
+// Desktop Required Component
+const DesktopRequired = () => {
+    return (
+        <Dashboard activeMenu="Brik Breaker Game">
+            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 text-white flex items-center justify-center p-4">
+                <div className="max-w-md w-full text-center">
+                    {/* Animated Icon Section */}
+                    <div className="relative mb-8">
+                        {/* Mobile Icon with Animation */}
+                        <div className="relative mx-auto w-20 h-20 mb-6">
+                            <Smartphone
+                                className="w-full h-full text-red-400 animate-pulse"
+                                strokeWidth={1.5}
+                            />
+                            <div className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center animate-bounce">
+                                <span className="text-white text-xl font-bold">✕</span>
+                            </div>
+                        </div>
+
+                        {/* Arrow Animation */}
+                        <div className="flex justify-center items-center mb-6">
+                            <ArrowRight className="w-8 h-8 text-cyan-400 animate-pulse" />
+                        </div>
+
+                        {/* Desktop Icon with Animation */}
+                        <div className="relative mx-auto w-20 h-20">
+                            <Monitor
+                                className="w-full h-full text-green-400 animate-pulse"
+                                strokeWidth={1.5}
+                            />
+                            <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center animate-bounce">
+                                <span className="text-white text-xl font-bold">✓</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Main Message */}
+                    <div className="space-y-6">
+                        <h1 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
+                            Desktop Required
+                        </h1>
+
+                        <div className="bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50">
+                            <p className="text-lg text-gray-300 mb-4">
+                                This game is optimized for desktop experience and requires a larger screen for the best gameplay.
+                            </p>
+
+                            <div className="space-y-3 text-sm text-gray-400">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-ping"></div>
+                                    <span>Precise paddle control</span>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-ping" style={{ animationDelay: '0.2s' }}></div>
+                                    <span>Keyboard shortcuts</span>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-2 h-2 bg-pink-400 rounded-full animate-ping" style={{ animationDelay: '0.4s' }}></div>
+                                    <span>Optimal viewing area</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Instructions */}
+                        <div className="bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-xl p-4 border border-cyan-500/30">
+                            <h3 className="text-xl font-semibold text-cyan-400 mb-3 flex items-center justify-center gap-2">
+                                <Monitor className="w-5 h-5" />
+                                How to Play
+                            </h3>
+                            <div className="text-sm text-gray-300 space-y-2">
+                                <p>1. Open this page on a desktop or laptop computer</p>
+                                <p>2. Use a screen with at least 1024px width</p>
+                                <p>3. Enjoy the full Brick Breaker experience!</p>
+                            </div>
+                        </div>
+
+                        {/* Retry Button */}
+                        <button
+                            onClick={() => window.location.reload()}
+                            className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 hover:from-cyan-600 hover:via-blue-700 hover:to-purple-700 px-6 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/30 border-2 border-cyan-300/40 flex items-center justify-center gap-2"
+                        >
+                            <RotateCcw className="w-5 h-5" />
+                            Try Again
+                        </button>
+                    </div>
+
+                    {/* Floating Particles Animation */}
+                    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                        {[...Array(6)].map((_, i) => (
+                            <div
+                                key={i}
+                                className="absolute w-2 h-2 bg-cyan-400/30 rounded-full animate-ping"
+                                style={{
+                                    left: `${20 + i * 15}%`,
+                                    top: `${30 + (i % 3) * 20}%`,
+                                    animationDelay: `${i * 0.5}s`,
+                                    animationDuration: '2s'
+                                }}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </Dashboard>
+    );
+};
+
+// Device Detection Hook
+const useDeviceDetection = () => {
+    const [isMobileDevice, setIsMobileDevice] = useState(false);
+
+    useEffect(() => {
+        const checkDevice = () => {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+            const isSmallScreen = window.innerWidth < 1024;
+            setIsMobileDevice(isMobile || isSmallScreen);
+        };
+
+        checkDevice();
+        window.addEventListener('resize', checkDevice);
+        return () => window.removeEventListener('resize', checkDevice);
+    }, []);
+
+    return isMobileDevice;
+};
+
 const BrickBreaker = () => {
     useUser();
+    const isMobileDevice = useDeviceDetection();
+
     const gameAreaRef = useRef(null);
     const animationFrameRef = useRef(null);
     const gameStateRef = useRef({});
     const lastTimeRef = useRef(0);
     const lastLaserTime = useRef(0);
     const containerRef = useRef(null);
+
+    // Early return for mobile devices
+    if (isMobileDevice) {
+        return <DesktopRequired />;
+    }
 
     // Core game state
     const [gameState, setGameState] = useState('menu');
@@ -1074,12 +1208,6 @@ const BrickBreaker = () => {
                                             <p>Use ←→ or A/D to move paddle</p>
                                             <p>SPACE to fire lasers (with power-up)</p>
                                             <p>Press P to pause • F for fullscreen • M for sound</p>
-                                            {isMobile && (
-                                                <>
-                                                    <p className="text-yellow-400">Touch and drag to move paddle</p>
-                                                    <p className="text-yellow-400">Tap to fire lasers</p>
-                                                </>
-                                            )}
                                         </div>
                                         <button
                                             onClick={startNewGame}
@@ -1194,22 +1322,6 @@ const BrickBreaker = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* Mobile controls info */}
-                {isMobile && gameState === 'playing' && (
-                    <div className="px-4 py-2 bg-black/30 backdrop-blur-sm border-t border-gray-700/50">
-                        <div className="text-center text-sm text-gray-300 space-y-1">
-                            <p>Touch and drag to control paddle</p>
-                            {gameObjectsRef.current.activePowerUps.has('LASER') && (
-                                <p className="text-yellow-400">Tap anywhere to fire lasers</p>
-                            )}
-                            <p className="text-gray-500">
-                                {deviceOrientation} mode
-                                {deviceOrientation === 'portrait' && ' • Rotate for better experience'}
-                            </p>
-                        </div>
-                    </div>
-                )}
 
                 {/* Simplified Power-up Legend */}
                 <div className="px-4 py-3 bg-black/20 backdrop-blur-sm border-t border-gray-700/30">
