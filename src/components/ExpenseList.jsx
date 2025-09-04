@@ -1,5 +1,5 @@
 import moment from "moment";
-import {Download, Mail} from "lucide-react";
+import { Download, Mail } from "lucide-react";
 import TransactionInfoCard from "./TransactionInfoCard.jsx";
 
 const ExpenseList = ({ transactions, onDelete, onDownload, onEmail }) => {

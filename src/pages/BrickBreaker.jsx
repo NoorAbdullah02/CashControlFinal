@@ -1,8 +1,10 @@
+
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { Play, Pause, RotateCcw, Trophy, Maximize2, Minimize2, Volume2, VolumeX, Monitor, Smartphone, ArrowRight } from 'lucide-react';
+import { Play, Pause, RotateCcw, Trophy, Maximize2, Minimize2, Volume2, VolumeX, Monitor, Smartphone, ArrowRight, Gamepad2, Mouse, Keyboard, Laptop, AlertTriangle } from 'lucide-react';
 import Dashboard from "../components/Dashboard.jsx";
 import { useUser } from "../hooks/useUser.jsx";
 
+// Game constants
 const GAME_WIDTH = 800;
 const GAME_HEIGHT = 600;
 const PADDLE_WIDTH = 100;
@@ -16,113 +18,241 @@ const FPS = 60;
 
 // Simplified power-up types for better performance
 const POWER_TYPES = {
-    MULTI_BALL: { color: 'bg-yellow-400', icon: '●●●', effect: 'Multi Ball', duration: 0 },
-    BIG_PADDLE: { color: 'bg-blue-400', icon: '━━━', effect: 'Big Paddle', duration: 400 },
-    SLOW_BALL: { color: 'bg-green-400', icon: '◐', effect: 'Slow Ball', duration: 300 },
-    EXTRA_LIFE: { color: 'bg-red-400', icon: '♥', effect: 'Extra Life', duration: 0 },
-    LASER: { color: 'bg-purple-400', icon: '↑↑↑', effect: 'Laser Mode', duration: 250 }
+    MULTI_BALL: { color: 'bg-yellow-400', icon: '\u25cf\u25cf\u25cf', effect: 'Multi Ball', duration: 0 },
+    BIG_PADDLE: { color: 'bg-blue-400', icon: '\u2501\u2501\u2501', effect: 'Big Paddle', duration: 400 },
+    SLOW_BALL: { color: 'bg-green-400', icon: '\u25d0', effect: 'Slow Ball', duration: 300 },
+    EXTRA_LIFE: { color: 'bg-red-400', icon: '\u2665', effect: 'Extra Life', duration: 0 },
+    LASER: { color: 'bg-purple-400', icon: '\u2191\u2191\u2191', effect: 'Laser Mode', duration: 250 }
 };
 
-// Desktop Required Component
+// Enhanced Desktop Required Component with improved visuals and messaging
 const DesktopRequired = () => {
+    const [animationState, setAnimationState] = useState('mobile');
+    const [deviceInfo, setDeviceInfo] = useState({
+        width: typeof window !== 'undefined' ? window.innerWidth : 0,
+        height: typeof window !== 'undefined' ? window.innerHeight : 0,
+        isMobile: false,
+        isTablet: false,
+        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
+        hasTouch: false
+    });
+
+    useEffect(() => {
+        // Update device info
+        const updateDeviceInfo = () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const userAgent = navigator.userAgent;
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent) || width < 768;
+            const isTablet = (width >= 768 && width < 1024) || /iPad|Tablet/i.test(userAgent);
+            const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+            setDeviceInfo({
+                width,
+                height,
+                isMobile,
+                isTablet,
+                userAgent,
+                hasTouch
+            });
+        };
+
+        // Animation interval for device switching
+        const interval = setInterval(() => {
+            setAnimationState(prev => prev === 'mobile' ? 'desktop' : 'mobile');
+        }, 3000);
+
+        updateDeviceInfo();
+        window.addEventListener('resize', updateDeviceInfo);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(updateDeviceInfo, 500);
+        });
+
+        return () => {
+            clearInterval(interval);
+            window.removeEventListener('resize', updateDeviceInfo);
+            window.removeEventListener('orientationchange', updateDeviceInfo);
+        };
+    }, []);
+
     return (
-        <Dashboard activeMenu="Brik Breaker Game">
-            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 text-white flex items-center justify-center p-4">
-                <div className="max-w-md w-full text-center">
-                    {/* Animated Icon Section */}
-                    <div className="relative mb-8">
-                        {/* Mobile Icon with Animation */}
-                        <div className="relative mx-auto w-20 h-20 mb-6">
-                            <Smartphone
-                                className="w-full h-full text-red-400 animate-pulse"
-                                strokeWidth={1.5}
-                            />
-                            <div className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center animate-bounce">
-                                <span className="text-white text-xl font-bold">✕</span>
+        <Dashboard activeMenu="Brick Breaker Game">
+            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white flex items-center justify-center p-4 relative overflow-hidden">
+                {/* Animated Background Elements */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    {/* Floating Particles */}
+                    {[...Array(30)].map((_, i) => (
+                        <div
+                            key={i}
+                            className="absolute w-1 h-1 bg-cyan-400/30 rounded-full animate-pulse"
+                            style={{
+                                left: `${Math.random() * 100}%`,
+                                top: `${Math.random() * 100}%`,
+                                animationDelay: `${Math.random() * 3}s`,
+                                animationDuration: `${2 + Math.random() * 2}s`
+                            }}
+                        />
+                    ))}
+
+                    {/* Grid Pattern */}
+                    <div className="absolute inset-0 opacity-5">
+                        <div className="absolute inset-0" style={{
+                            backgroundImage: `
+                            linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px)
+                        `,
+                            backgroundSize: '50px 50px'
+                        }} />
+                    </div>
+
+                    {/* Floating Game Elements */}
+                    <div className="absolute top-10 left-10 opacity-20 animate-bounce">
+                        <div className="w-16 h-4 bg-red-500 rounded" />
+                    </div>
+                    <div className="absolute top-20 right-20 opacity-20 animate-pulse">
+                        <div className="w-3 h-3 bg-cyan-400 rounded-full" />
+                    </div>
+                    <div className="absolute bottom-20 left-20 opacity-20 animate-ping">
+                        <div className="w-20 h-3 bg-blue-500 rounded-full" />
+                    </div>
+                    <div className="absolute bottom-40 right-40 opacity-20 animate-bounce">
+                        <div className="w-12 h-12 bg-purple-500/30 rounded-lg rotate-45" />
+                    </div>
+                </div>
+
+                <div className="max-w-2xl w-full text-center relative z-10">
+                    {/* Alert Banner */}
+                    <div className="mb-8 bg-red-500/80 backdrop-blur-sm p-3 rounded-lg flex items-center justify-center gap-2 animate-pulse">
+                        <AlertTriangle className="w-6 h-6" />
+                        <span className="font-bold">DESKTOP DEVICE REQUIRED</span>
+                        <AlertTriangle className="w-6 h-6" />
+                    </div>
+
+                    {/* Main Icon Animation */}
+                    <div className="relative mb-12 flex items-center justify-center gap-8">
+                        {/* Mobile Device */}
+                        <div className={`relative transition-all duration-1000 ${animationState === 'mobile' ? 'scale-110 opacity-100' : 'scale-90 opacity-50'}`}>
+                            <div className="relative w-24 h-24 p-4">
+                                <Smartphone className="w-full h-full text-red-400" strokeWidth={1.5} />
+                                <div className="absolute -top-2 -right-2 w-10 h-10 bg-red-500 rounded-full flex items-center justify-center animate-bounce">
+                                    <span className="text-white text-2xl font-bold">\u2715</span>
+                                </div>
                             </div>
+                            <p className="mt-3 text-red-400 font-semibold">Not Supported</p>
                         </div>
 
-                        {/* Arrow Animation */}
-                        <div className="flex justify-center items-center mb-6">
-                            <ArrowRight className="w-8 h-8 text-cyan-400 animate-pulse" />
+                        {/* Arrow */}
+                        <div className="flex flex-col items-center gap-2">
+                            <ArrowRight className="w-10 h-10 text-cyan-400 animate-pulse" />
+                            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-pulse" />
                         </div>
 
-                        {/* Desktop Icon with Animation */}
-                        <div className="relative mx-auto w-20 h-20">
-                            <Monitor
-                                className="w-full h-full text-green-400 animate-pulse"
-                                strokeWidth={1.5}
-                            />
-                            <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center animate-bounce">
-                                <span className="text-white text-xl font-bold">✓</span>
+                        {/* Desktop */}
+                        <div className={`relative transition-all duration-1000 ${animationState === 'desktop' ? 'scale-110 opacity-100' : 'scale-90 opacity-50'}`}>
+                            <div className="relative w-24 h-24 p-4">
+                                <Laptop className="w-full h-full text-green-400" strokeWidth={1.5} />
+                                <div className="absolute -top-2 -right-2 w-10 h-10 bg-green-500 rounded-full flex items-center justify-center animate-bounce">
+                                    <span className="text-white text-2xl font-bold">\u2713</span>
+                                </div>
+                            </div>
+                            <p className="mt-3 text-green-400 font-semibold">Required</p>
+                        </div>
+                    </div>
+
+                    {/* Main Title */}
+                    <div className="mb-8">
+                        <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent mb-4 animate-pulse">
+                            BRICK BREAKER
+                        </h1>
+                        <div className="w-32 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 mx-auto rounded-full" />
+                    </div>
+
+                    {/* Desktop Required Message */}
+                    <div className="bg-black/40 backdrop-blur-lg rounded-2xl p-8 border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 mb-8">
+                        <div className="flex items-center justify-center gap-3 mb-6">
+                            <Laptop className="w-8 h-8 text-cyan-400" />
+                            <h2 className="text-2xl md:text-3xl font-bold text-cyan-400">Desktop Required</h2>
+                            <Laptop className="w-8 h-8 text-cyan-400" />
+                        </div>
+
+                        <p className="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
+                            This game requires a desktop or laptop computer with a keyboard and mouse for the optimal gaming experience.
+                        </p>
+
+                        {/* Feature Requirements */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div className="flex flex-col items-center gap-3 p-4 bg-gray-800/40 rounded-xl border border-gray-700/50">
+                                <Keyboard className="w-8 h-8 text-blue-400" />
+                                <div className="text-center">
+                                    <h3 className="font-semibold text-blue-400 mb-1">Keyboard Controls</h3>
+                                    <p className="text-xs text-gray-400">Arrow keys or A/D for precise paddle movement</p>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col items-center gap-3 p-4 bg-gray-800/40 rounded-xl border border-gray-700/50">
+                                <Mouse className="w-8 h-8 text-purple-400" />
+                                <div className="text-center">
+                                    <h3 className="font-semibold text-purple-400 mb-1">Mouse Support</h3>
+                                    <p className="text-xs text-gray-400">Click interactions and menu navigation</p>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col items-center gap-3 p-4 bg-gray-800/40 rounded-xl border border-gray-700/50">
+                                <Monitor className="w-8 h-8 text-green-400" />
+                                <div className="text-center">
+                                    <h3 className="font-semibold text-green-400 mb-1">Large Display</h3>
+                                    <p className="text-xs text-gray-400">Minimum 1024px width for full experience</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Main Message */}
-                    <div className="space-y-6">
-                        <h1 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
-                            Desktop Required
-                        </h1>
-
-                        <div className="bg-black/30 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50">
-                            <p className="text-lg text-gray-300 mb-4">
-                                This game is optimized for desktop experience and requires a larger screen for the best gameplay.
-                            </p>
-
-                            <div className="space-y-3 text-sm text-gray-400">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-ping"></div>
-                                    <span>Precise paddle control</span>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-ping" style={{ animationDelay: '0.2s' }}></div>
-                                    <span>Keyboard shortcuts</span>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-2 h-2 bg-pink-400 rounded-full animate-ping" style={{ animationDelay: '0.4s' }}></div>
-                                    <span>Optimal viewing area</span>
-                                </div>
+                    {/* Instructions Card */}
+                    <div className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 backdrop-blur-lg rounded-2xl p-6 border border-indigo-500/30 shadow-lg mb-8">
+                        <h3 className="text-2xl font-bold text-indigo-400 mb-4 flex items-center justify-center gap-2">
+                            <Laptop className="w-6 h-6" />
+                            How to Play on Desktop
+                        </h3>
+                        <div className="space-y-3 text-gray-300">
+                            <div className="flex items-center gap-3">
+                                <div className="flex-shrink-0 w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
+                                <p>Open this page on your desktop or laptop computer</p>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <div className="flex-shrink-0 w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
+                                <p>Ensure your screen is at least 1024px wide for optimal experience</p>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <div className="flex-shrink-0 w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
+                                <p>Use keyboard controls for precise paddle movement</p>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <div className="flex-shrink-0 w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-sm">4</div>
+                                <p>Enjoy the full gaming experience with power-ups and effects!</p>
                             </div>
                         </div>
+                    </div>
 
-                        {/* Instructions */}
-                        <div className="bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-xl p-4 border border-cyan-500/30">
-                            <h3 className="text-xl font-semibold text-cyan-400 mb-3 flex items-center justify-center gap-2">
-                                <Monitor className="w-5 h-5" />
-                                How to Play
-                            </h3>
-                            <div className="text-sm text-gray-300 space-y-2">
-                                <p>1. Open this page on a desktop or laptop computer</p>
-                                <p>2. Use a screen with at least 1024px width</p>
-                                <p>3. Enjoy the full Brick Breaker experience!</p>
-                            </div>
-                        </div>
-
-                        {/* Retry Button */}
+                    {/* Action Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <button
                             onClick={() => window.location.reload()}
-                            className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 hover:from-cyan-600 hover:via-blue-700 hover:to-purple-700 px-6 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/30 border-2 border-cyan-300/40 flex items-center justify-center gap-2"
+                            className="group bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 hover:from-cyan-600 hover:via-blue-700 hover:to-purple-700 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/30 border-2 border-cyan-300/40 flex items-center justify-center gap-3"
                         >
-                            <RotateCcw className="w-5 h-5" />
+                            <RotateCcw className="w-6 h-6 group-hover:rotate-180 transition-transform duration-500" />
                             Try Again
                         </button>
                     </div>
 
-                    {/* Floating Particles Animation */}
-                    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                        {[...Array(6)].map((_, i) => (
-                            <div
-                                key={i}
-                                className="absolute w-2 h-2 bg-cyan-400/30 rounded-full animate-ping"
-                                style={{
-                                    left: `${20 + i * 15}%`,
-                                    top: `${30 + (i % 3) * 20}%`,
-                                    animationDelay: `${i * 0.5}s`,
-                                    animationDuration: '2s'
-                                }}
-                            />
-                        ))}
+                    {/* Device Info */}
+                    <div className="mt-8 p-4 bg-black/20 rounded-lg border border-gray-700/30">
+                        <p className="text-sm text-gray-400 mb-2">Current Device Info:</p>
+                        <div className="text-xs text-gray-500 space-y-1">
+                            <p>Screen Size: {deviceInfo.width}px \u00d7 {deviceInfo.height}px (Minimum Required: 1024px width)</p>
+                            <p>Device Type: {deviceInfo.isMobile ? 'Mobile' : deviceInfo.isTablet ? 'Tablet' : 'Desktop/Laptop'}</p>
+                            <p>Touch Support: {deviceInfo.hasTouch ? 'Yes (Not Ideal for Game)' : 'No'}</p>
+                            <p className="text-xs opacity-70 truncate">{deviceInfo.userAgent}</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -130,29 +260,92 @@ const DesktopRequired = () => {
     );
 };
 
-// Device Detection Hook
+// Enhanced Device Detection Hook with more accurate detection
 const useDeviceDetection = () => {
-    const [isMobileDevice, setIsMobileDevice] = useState(false);
+    const [deviceInfo, setDeviceInfo] = useState({
+        isMobile: false,
+        isTablet: false,
+        isDesktop: true,
+        screenWidth: typeof window !== 'undefined' ? window.innerWidth : 1024,
+        screenHeight: typeof window !== 'undefined' ? window.innerHeight : 768,
+        hasTouch: false,
+        orientation: 'landscape'
+    });
 
     useEffect(() => {
         const checkDevice = () => {
+            if (typeof window === 'undefined') return;
+
             const userAgent = navigator.userAgent.toLowerCase();
-            const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
-            const isSmallScreen = window.innerWidth < 1024;
-            setIsMobileDevice(isMobile || isSmallScreen);
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            // Enhanced mobile detection with multiple signals
+            const mobileKeywords = /android|webos|iphone|ipod|blackberry|iemobile|opera mini|mobile/i;
+            const tabletKeywords = /ipad|tablet|playbook|silk/i;
+
+            const isMobileUA = mobileKeywords.test(userAgent) && !tabletKeywords.test(userAgent);
+
+            // Touch detection
+            const hasTouch = 'ontouchstart' in window ||
+                navigator.maxTouchPoints > 0 ||
+                navigator.msMaxTouchPoints > 0;
+
+            // Screen size detection with more granularity
+            const isVerySmallScreen = screenWidth < 640;
+            const isSmallScreen = screenWidth < 768;
+            const isMediumScreen = screenWidth >= 768 && screenWidth < 1024;
+            const isLargeScreen = screenWidth >= 1024;
+
+            // Orientation detection
+            const orientation = screenWidth > screenHeight ? 'landscape' : 'portrait';
+
+            // Combined signals for better accuracy
+            const isMobile = isMobileUA || isVerySmallScreen || (hasTouch && isSmallScreen && orientation === 'portrait');
+            const isTablet = (tabletKeywords.test(userAgent) || isMediumScreen ||
+                (hasTouch && orientation === 'landscape' && screenWidth < 1024)) && !isMobile;
+
+            // Desktop is the absence of mobile and tablet indicators, plus minimum screen size
+            const isDesktop = !isMobile && !isTablet && isLargeScreen;
+
+            setDeviceInfo({
+                isMobile,
+                isTablet,
+                isDesktop,
+                screenWidth,
+                screenHeight,
+                hasTouch,
+                orientation
+            });
         };
 
+        // Initial check
         checkDevice();
+
+        // Event listeners for responsive updates
         window.addEventListener('resize', checkDevice);
-        return () => window.removeEventListener('resize', checkDevice);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(checkDevice, 500); // Delay to ensure orientation has changed
+        });
+
+        return () => {
+            window.removeEventListener('resize', checkDevice);
+            window.removeEventListener('orientationchange', checkDevice);
+        };
     }, []);
 
-    return isMobileDevice;
+    return deviceInfo;
 };
 
 const BrickBreaker = () => {
     useUser();
-    const isMobileDevice = useDeviceDetection();
+    const deviceInfo = useDeviceDetection();
+
+    // Early return for non-desktop devices - this is the key part that ensures
+    // the game only runs on desktop devices
+    if (!deviceInfo.isDesktop) {
+        return <DesktopRequired />;
+    }
 
     const gameAreaRef = useRef(null);
     const animationFrameRef = useRef(null);
@@ -160,11 +353,6 @@ const BrickBreaker = () => {
     const lastTimeRef = useRef(0);
     const lastLaserTime = useRef(0);
     const containerRef = useRef(null);
-
-    // Early return for mobile devices
-    if (isMobileDevice) {
-        return <DesktopRequired />;
-    }
 
     // Core game state
     const [gameState, setGameState] = useState('menu');
@@ -181,7 +369,7 @@ const BrickBreaker = () => {
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [soundEnabled, setSoundEnabled] = useState(true);
 
-    // Optimized game objects with minimal state updates
+    // Optimized game objects
     const gameObjectsRef = useRef({
         paddle: { x: GAME_WIDTH / 2 - PADDLE_WIDTH / 2, width: PADDLE_WIDTH },
         balls: [],
@@ -193,24 +381,13 @@ const BrickBreaker = () => {
         powerUpTimers: new Map()
     });
 
-    // Mobile optimization
-    const [scale, setScale] = useState(1);
-    const [isMobile, setIsMobile] = useState(false);
-    const [deviceOrientation, setDeviceOrientation] = useState('portrait');
-
-    // Input handling with minimal updates
+    // Input handling
     const keys = useRef({ left: false, right: false, space: false });
-    const touchState = useRef({
-        isActive: false,
-        startX: 0,
-        currentX: 0,
-        lastFireTime: 0
-    });
     const paddleTarget = useRef(GAME_WIDTH / 2 - PADDLE_WIDTH / 2);
+    const scale = useRef(1);
 
-    // Optimized audio with pooling
+    // Audio
     const audioContext = useRef(null);
-    const oscillatorPool = useRef([]);
 
     const playSound = useCallback((frequency, duration = 100, type = 'sine') => {
         if (!soundEnabled || !audioContext.current) return;
@@ -231,53 +408,17 @@ const BrickBreaker = () => {
             oscillator.start();
             oscillator.stop(audioContext.current.currentTime + duration / 1000);
         } catch (error) {
-            // Silent fail
+            console.warn('Audio playback failed:', error);
         }
     }, [soundEnabled]);
 
-    // Initialize audio and check mobile
+    // Initialize audio
     useEffect(() => {
         try {
             audioContext.current = new (window.AudioContext || window.webkitAudioContext)();
         } catch (error) {
-            // Silent fail
+            console.warn('AudioContext creation failed:', error);
         }
-
-        const checkMobile = () => {
-            const mobile = window.innerWidth <= 768 || 'ontouchstart' in window;
-            setIsMobile(mobile);
-            setDeviceOrientation(window.innerHeight > window.innerWidth ? 'portrait' : 'landscape');
-        };
-
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
-
-    // Fullscreen handling
-    const toggleFullscreen = useCallback(async () => {
-        if (!containerRef.current) return;
-
-        try {
-            if (!document.fullscreenElement) {
-                await containerRef.current.requestFullscreen();
-                setIsFullscreen(true);
-            } else {
-                await document.exitFullscreen();
-                setIsFullscreen(false);
-            }
-        } catch (error) {
-            // Silent fail
-        }
-    }, []);
-
-    useEffect(() => {
-        const handleFullscreenChange = () => {
-            setIsFullscreen(!!document.fullscreenElement);
-        };
-
-        document.addEventListener('fullscreenchange', handleFullscreenChange);
-        return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
     }, []);
 
     // Optimized brick initialization
@@ -288,7 +429,6 @@ const BrickBreaker = () => {
 
         for (let row = 0; row < BRICK_ROWS; row++) {
             for (let col = 0; col < BRICK_COLS; col++) {
-                // Simple pattern for higher levels
                 if (level > 3 && (row + col) % 5 === 0 && Math.random() < 0.3) continue;
 
                 newBricks.push({
@@ -321,7 +461,7 @@ const BrickBreaker = () => {
             y,
             dx: customVelocity ? customVelocity.dx : Math.cos(angle) * baseSpeed,
             dy: customVelocity ? customVelocity.dy : Math.sin(angle) * baseSpeed,
-            trail: [] // Simplified trail
+            trail: []
         };
     }, [level]);
 
@@ -329,13 +469,46 @@ const BrickBreaker = () => {
         return [createBall()];
     }, [createBall]);
 
-    // Simplified power-up application
+    // Game initialization
+    const resetGame = useCallback(() => {
+        gameObjectsRef.current = {
+            paddle: { x: GAME_WIDTH / 2 - PADDLE_WIDTH / 2, width: PADDLE_WIDTH },
+            balls: resetBall(),
+            bricks: initializeBricks(),
+            powerUps: [],
+            particles: [],
+            lasers: [],
+            activePowerUps: new Set(),
+            powerUpTimers: new Map()
+        };
+        paddleTarget.current = GAME_WIDTH / 2 - PADDLE_WIDTH / 2;
+    }, [initializeBricks, resetBall]);
+
+    // Start new game
+    const startNewGame = useCallback(() => {
+        setLevel(1);
+        setScore(0);
+        setLives(3);
+        resetGame();
+        setGameState('playing');
+        playSound(800, 150);
+    }, [resetGame, playSound]);
+
+    // Collision detection
+    const checkCollision = useCallback((ball, rect) => {
+        return !(ball.x + BALL_SIZE / 2 < rect.x ||
+            ball.x - BALL_SIZE / 2 > rect.x + rect.width ||
+            ball.y + BALL_SIZE / 2 < rect.y ||
+            ball.y - BALL_SIZE / 2 > rect.y + rect.height);
+    }, []);
+
+    // Power-up application
     const applyPowerUp = useCallback((type) => {
         const objects = gameObjectsRef.current;
 
         switch (type) {
             case 'MULTI_BALL':
-                if (objects.balls.length < 4) { // Reduced max balls for performance
+                if (objects.balls.length < 4) {
                     const newBalls = [];
                     objects.balls.forEach(ball => {
                         if (newBalls.length < 2) {
@@ -389,48 +562,7 @@ const BrickBreaker = () => {
         }
     }, [createBall, playSound]);
 
-    // Game initialization
-    const resetGame = useCallback(() => {
-        gameObjectsRef.current = {
-            paddle: { x: GAME_WIDTH / 2 - PADDLE_WIDTH / 2, width: PADDLE_WIDTH },
-            balls: resetBall(),
-            bricks: initializeBricks(),
-            powerUps: [],
-            particles: [],
-            lasers: [],
-            activePowerUps: new Set(),
-            powerUpTimers: new Map()
-        };
-        paddleTarget.current = GAME_WIDTH / 2 - PADDLE_WIDTH / 2;
-    }, [initializeBricks, resetBall]);
-
-    // Optimized collision detection
-    const checkCollision = useCallback((ball, rect) => {
-        return !(ball.x + BALL_SIZE / 2 < rect.x ||
-            ball.x - BALL_SIZE / 2 > rect.x + rect.width ||
-            ball.y + BALL_SIZE / 2 < rect.y ||
-            ball.y - BALL_SIZE / 2 > rect.y + rect.height);
-    }, []);
-
-    // Simplified collision normal
-    const getCollisionNormal = useCallback((ball, rect) => {
-        const ballCenterX = ball.x;
-        const ballCenterY = ball.y;
-        const rectCenterX = rect.x + rect.width / 2;
-        const rectCenterY = rect.y + rect.height / 2;
-
-        const deltaX = ballCenterX - rectCenterX;
-        const deltaY = ballCenterY - rectCenterY;
-
-        const overlapX = (rect.width / 2 + BALL_SIZE / 2) - Math.abs(deltaX);
-        const overlapY = (rect.height / 2 + BALL_SIZE / 2) - Math.abs(deltaY);
-
-        return overlapX < overlapY ?
-            { x: Math.sign(deltaX), y: 0 } :
-            { x: 0, y: Math.sign(deltaY) };
-    }, []);
-
-    // Heavily optimized game loop
+    // Game loop
     const gameLoop = useCallback((currentTime) => {
         if (gameStateRef.current.state !== 'playing') return;
 
@@ -440,13 +572,11 @@ const BrickBreaker = () => {
 
         const objects = gameObjectsRef.current;
         let scoreToAdd = 0;
-        let livesLost = 0;
-        let levelComplete = false;
 
-        // Update paddle with smooth movement
+        // Update paddle
         const targetX = paddleTarget.current;
         const currentX = objects.paddle.x;
-        const paddleSpeed = isMobile ? 12 : 10;
+        const paddleSpeed = 10;
 
         if (Math.abs(targetX - currentX) > 1) {
             objects.paddle.x = Math.max(0, Math.min(GAME_WIDTH - objects.paddle.width,
@@ -462,10 +592,9 @@ const BrickBreaker = () => {
                 paddleTarget.current + (6 + level) * timeScale);
         }
 
-        // Update balls with optimized physics
+        // Update balls
         const ballsToRemove = [];
         objects.balls.forEach((ball, ballIndex) => {
-            // Update position
             ball.x += ball.dx * timeScale;
             ball.y += ball.dy * timeScale;
 
@@ -508,7 +637,6 @@ const BrickBreaker = () => {
                 ball.dx = ball.dx * 0.8 + spin;
                 ball.y = paddleRect.y - BALL_SIZE / 2 - 1;
 
-                // Speed management
                 const speed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
                 const minSpeed = 2.5 + level * 0.1;
                 const maxSpeed = 6 + level * 0.15;
@@ -523,30 +651,19 @@ const BrickBreaker = () => {
                 playSound(700, 50);
             }
 
-            // Simplified trail update (only keep last 3 positions for performance)
-            if (!ball.trail) ball.trail = [];
-            ball.trail.push({ x: ball.x, y: ball.y });
-            if (ball.trail.length > 3) ball.trail.shift();
-
             // Brick collisions
             for (let i = objects.bricks.length - 1; i >= 0; i--) {
                 const brick = objects.bricks[i];
 
                 if (checkCollision(ball, brick)) {
-                    const normal = getCollisionNormal(ball, brick);
+                    ball.dy = -ball.dy;
 
-                    // Apply collision
-                    if (normal.x !== 0) ball.dx = -ball.dx;
-                    if (normal.y !== 0) ball.dy = -ball.dy;
-
-                    // Damage brick
                     brick.hits--;
                     scoreToAdd += 10 * level;
 
                     if (brick.hits <= 0) {
                         scoreToAdd += 40 * level;
 
-                        // Drop power-up (reduced chance for performance)
                         if (brick.powerUp && objects.powerUps.length < 3) {
                             objects.powerUps.push({
                                 id: `powerup-${Date.now()}-${Math.random()}`,
@@ -555,20 +672,6 @@ const BrickBreaker = () => {
                                 y: brick.y + brick.height / 2,
                                 dy: 1.2,
                                 rotation: 0
-                            });
-                        }
-
-                        // Simplified particles (fewer particles for performance)
-                        for (let p = 0; p < 4; p++) {
-                            objects.particles.push({
-                                id: `particle-${Date.now()}-${p}`,
-                                x: brick.x + brick.width / 2,
-                                y: brick.y + brick.height / 2,
-                                dx: (Math.random() - 0.5) * 6,
-                                dy: (Math.random() - 0.5) * 6,
-                                life: 30,
-                                color: brick.color,
-                                size: 2 + Math.random() * 2
                             });
                         }
 
@@ -587,63 +690,16 @@ const BrickBreaker = () => {
             objects.balls.splice(ballsToRemove[i], 1);
         }
 
-        // Enhanced laser system
-        if (keys.current.space && objects.activePowerUps.has('LASER') &&
-            currentTime - lastLaserTime.current > 200) {
-            objects.lasers.push({
-                id: `laser-${currentTime}`,
-                x: objects.paddle.x + objects.paddle.width / 2,
-                y: GAME_HEIGHT - 90,
-                dy: -12
-            });
-            lastLaserTime.current = currentTime;
-            playSound(900, 40, 'sawtooth');
-        }
-
-        // Update lasers
-        for (let i = objects.lasers.length - 1; i >= 0; i--) {
-            const laser = objects.lasers[i];
-            laser.y += laser.dy * timeScale;
-
-            if (laser.y < -20) {
-                objects.lasers.splice(i, 1);
-                continue;
-            }
-
-            // Laser-brick collision
-            for (let j = objects.bricks.length - 1; j >= 0; j--) {
-                const brick = objects.bricks[j];
-
-                if (laser.x >= brick.x && laser.x <= brick.x + brick.width &&
-                    laser.y >= brick.y && laser.y <= brick.y + brick.height) {
-
-                    brick.hits--;
-                    scoreToAdd += 15 * level;
-
-                    if (brick.hits <= 0) {
-                        scoreToAdd += 60 * level;
-                        objects.bricks.splice(j, 1);
-                    }
-
-                    objects.lasers.splice(i, 1);
-                    playSound(1200, 30);
-                    break;
-                }
-            }
-        }
-
         // Update power-ups
         for (let i = objects.powerUps.length - 1; i >= 0; i--) {
             const powerUp = objects.powerUps[i];
             powerUp.y += powerUp.dy * timeScale;
-            powerUp.rotation = (powerUp.rotation || 0) + 2 * timeScale;
 
             if (powerUp.y > GAME_HEIGHT + 30) {
                 objects.powerUps.splice(i, 1);
                 continue;
             }
 
-            // Collection detection
             const collected = Math.abs(powerUp.x - (objects.paddle.x + objects.paddle.width / 2)) < 25 &&
                 powerUp.y >= GAME_HEIGHT - 100 && powerUp.y <= GAME_HEIGHT - 70;
 
@@ -653,50 +709,82 @@ const BrickBreaker = () => {
             }
         }
 
-        // Update particles (simplified)
-        for (let i = objects.particles.length - 1; i >= 0; i--) {
-            const particle = objects.particles[i];
-            particle.x += particle.dx * timeScale * 0.5;
-            particle.y += particle.dy * timeScale * 0.5;
-            particle.dx *= 0.96;
-            particle.dy += 0.15; // Gravity
-            particle.life -= timeScale;
-
-            if (particle.life <= 0) {
-                objects.particles.splice(i, 1);
-            }
-        }
-
         // Update power-up timers
-        objects.powerUpTimers.forEach((time, key) => {
-            const newTime = time - timeScale;
-            if (newTime <= 0) {
-                objects.activePowerUps.delete(key);
-                objects.powerUpTimers.delete(key);
+        objects.powerUpTimers.forEach((timeLeft, powerType) => {
+            if (timeLeft <= 0) {
+                objects.activePowerUps.delete(powerType);
+                objects.powerUpTimers.delete(powerType);
 
-                // Reset effects
-                if (key === 'BIG_PADDLE') {
+                // Reset effects when power-up expires
+                if (powerType === 'BIG_PADDLE') {
                     objects.paddle.width = PADDLE_WIDTH;
-                    paddleTarget.current = Math.min(paddleTarget.current, GAME_WIDTH - PADDLE_WIDTH);
-                } else if (key === 'SLOW_BALL') {
-                    objects.balls.forEach(ball => {
-                        ball.dx /= 0.75;
-                        ball.dy /= 0.75;
-                    });
                 }
             } else {
-                objects.powerUpTimers.set(key, newTime);
+                objects.powerUpTimers.set(powerType, timeLeft - 1);
             }
         });
 
-        // Check game state changes
-        if (objects.balls.length === 0) {
-            livesLost = 1;
+        // Handle laser firing
+        if (keys.current.space && objects.activePowerUps.has('LASER')) {
+            const currentTime = Date.now();
+            if (currentTime - lastLaserTime.current > 300) {
+                lastLaserTime.current = currentTime;
+
+                objects.lasers.push({
+                    id: `laser-${Date.now()}`,
+                    x: objects.paddle.x + objects.paddle.width / 2,
+                    y: GAME_HEIGHT - 80,
+                    dy: -8
+                });
+
+                playSound(1200, 50, 'sawtooth');
+            }
         }
 
-        if (objects.bricks.length === 0) {
-            levelComplete = true;
-            scoreToAdd += 1000 * level;
+        // Update lasers
+        for (let i = objects.lasers.length - 1; i >= 0; i--) {
+            const laser = objects.lasers[i];
+            laser.y += laser.dy * timeScale;
+
+            if (laser.y < 0) {
+                objects.lasers.splice(i, 1);
+                continue;
+            }
+
+            // Check laser-brick collisions
+            for (let j = objects.bricks.length - 1; j >= 0; j--) {
+                const brick = objects.bricks[j];
+
+                if (laser.x >= brick.x && laser.x <= brick.x + brick.width &&
+                    laser.y >= brick.y && laser.y <= brick.y + brick.height) {
+
+                    brick.hits--;
+                    scoreToAdd += 5 * level;
+
+                    if (brick.hits <= 0) {
+                        scoreToAdd += 20 * level;
+
+                        if (brick.powerUp && objects.powerUps.length < 3) {
+                            objects.powerUps.push({
+                                id: `powerup-${Date.now()}-${Math.random()}`,
+                                type: brick.powerUp,
+                                x: brick.x + brick.width / 2,
+                                y: brick.y + brick.height / 2,
+                                dy: 1.2,
+                                rotation: 0
+                            });
+                        }
+
+                        objects.bricks.splice(j, 1);
+                        playSound(500, 40);
+                    } else {
+                        playSound(300, 30);
+                    }
+
+                    objects.lasers.splice(i, 1);
+                    break;
+                }
+            }
         }
 
         // Update score
@@ -704,9 +792,9 @@ const BrickBreaker = () => {
             setScore(prev => prev + scoreToAdd);
         }
 
-        // Handle state changes
-        if (livesLost > 0) {
-            const newLives = lives - livesLost;
+        // Check game state
+        if (objects.balls.length === 0) {
+            const newLives = lives - 1;
             if (newLives <= 0) {
                 setGameState('gameOver');
                 if (score + scoreToAdd > highScore) {
@@ -715,7 +803,7 @@ const BrickBreaker = () => {
                     try {
                         localStorage.setItem('brickBreakerHighScore', newHighScore.toString());
                     } catch (error) {
-                        // Silent fail
+                        console.warn('Failed to save high score:', error);
                     }
                 }
                 playSound(200, 400);
@@ -731,7 +819,7 @@ const BrickBreaker = () => {
             }
         }
 
-        if (levelComplete) {
+        if (objects.bricks.length === 0) {
             setGameState('levelComplete');
             playSound(1000, 200);
             setTimeout(() => {
@@ -743,17 +831,7 @@ const BrickBreaker = () => {
         }
 
         animationFrameRef.current = requestAnimationFrame(gameLoop);
-    }, [checkCollision, getCollisionNormal, applyPowerUp, level, lives, score, highScore, resetBall, resetGame, playSound, isMobile]);
-
-    // Start new game
-    const startNewGame = useCallback(() => {
-        setLevel(1);
-        setScore(0);
-        setLives(3);
-        resetGame();
-        setGameState('playing');
-        playSound(800, 150);
-    }, [resetGame, playSound]);
+    }, [checkCollision, applyPowerUp, level, lives, score, highScore, resetBall, resetGame, playSound]);
 
     // Update game state ref
     useEffect(() => {
@@ -774,7 +852,7 @@ const BrickBreaker = () => {
         };
     }, [gameState, gameLoop]);
 
-    // Optimized keyboard controls
+    // Keyboard controls
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.repeat) return;
@@ -833,77 +911,32 @@ const BrickBreaker = () => {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
         };
-    }, [gameState, toggleFullscreen]);
+    }, [gameState]);
 
-    // Optimized touch controls
-    const handleTouchStart = useCallback((e) => {
-        const touch = e.touches[0];
-        const rect = gameAreaRef.current?.getBoundingClientRect();
-        if (!rect) return;
+    // Fullscreen handling
+    const toggleFullscreen = useCallback(async () => {
+        if (!containerRef.current) return;
 
-        touchState.current.isActive = true;
-        const relativeX = (touch.clientX - rect.left) / scale;
-        paddleTarget.current = Math.max(0, Math.min(GAME_WIDTH - gameObjectsRef.current.paddle.width,
-            relativeX - gameObjectsRef.current.paddle.width / 2));
-
-        e.preventDefault();
-    }, [scale]);
-
-    const handleTouchMove = useCallback((e) => {
-        if (!touchState.current.isActive || !gameAreaRef.current) return;
-
-        const touch = e.touches[0];
-        const rect = gameAreaRef.current.getBoundingClientRect();
-        const relativeX = (touch.clientX - rect.left) / scale;
-
-        paddleTarget.current = Math.max(0, Math.min(GAME_WIDTH - gameObjectsRef.current.paddle.width,
-            relativeX - gameObjectsRef.current.paddle.width / 2));
-
-        e.preventDefault();
-    }, [scale]);
-
-    const handleTouchEnd = useCallback((e) => {
-        // Fire laser on tap
-        if (gameObjectsRef.current.activePowerUps.has('LASER') &&
-            Date.now() - touchState.current.lastFireTime > 250) {
-            keys.current.space = true;
-            touchState.current.lastFireTime = Date.now();
-            setTimeout(() => { keys.current.space = false; }, 100);
+        try {
+            if (!document.fullscreenElement) {
+                await containerRef.current.requestFullscreen();
+                setIsFullscreen(true);
+            } else {
+                await document.exitFullscreen();
+                setIsFullscreen(false);
+            }
+        } catch (error) {
+            console.warn('Fullscreen failed:', error);
         }
-
-        touchState.current.isActive = false;
-        e.preventDefault();
     }, []);
 
-    // Responsive scaling
     useEffect(() => {
-        const updateScale = () => {
-            if (!containerRef.current) return;
-
-            const containerRect = containerRef.current.getBoundingClientRect();
-            const availableWidth = containerRect.width - 32;
-            const availableHeight = containerRect.height - 200;
-
-            const scaleX = availableWidth / GAME_WIDTH;
-            const scaleY = availableHeight / GAME_HEIGHT;
-
-            setScale(Math.min(scaleX, scaleY, 1));
+        const handleFullscreenChange = () => {
+            setIsFullscreen(!!document.fullscreenElement);
         };
 
-        updateScale();
-        const resizeHandler = () => {
-            requestAnimationFrame(updateScale);
-        };
-
-        window.addEventListener('resize', resizeHandler);
-        window.addEventListener('orientationchange', () => {
-            setTimeout(updateScale, 100);
-        });
-
-        return () => {
-            window.removeEventListener('resize', resizeHandler);
-            window.removeEventListener('orientationchange', updateScale);
-        };
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
     }, []);
 
     // Initialize game
@@ -911,7 +944,19 @@ const BrickBreaker = () => {
         resetGame();
     }, [resetGame]);
 
-    // Memoized game objects for rendering (prevents unnecessary re-renders)
+    // Force re-render for smooth visuals
+    const [, forceUpdate] = useState({});
+    useEffect(() => {
+        if (gameState === 'playing') {
+            const interval = setInterval(() => {
+                forceUpdate({});
+            }, 100);
+
+            return () => clearInterval(interval);
+        }
+    }, [gameState]);
+
+    // Memoized game objects for rendering
     const renderObjects = useMemo(() => {
         if (gameState !== 'playing') return null;
 
@@ -920,7 +965,7 @@ const BrickBreaker = () => {
             bricks: objects.bricks,
             balls: objects.balls,
             powerUps: objects.powerUps,
-            particles: objects.particles.slice(-20), // Limit particles for performance
+            particles: objects.particles.slice(-20),
             lasers: objects.lasers,
             paddle: objects.paddle,
             activePowerUps: objects.activePowerUps,
@@ -928,40 +973,17 @@ const BrickBreaker = () => {
         };
     }, [gameState]);
 
-    // Force re-render occasionally to update visuals
-    const [, forceUpdate] = useState({});
-    useEffect(() => {
-        if (gameState === 'playing') {
-            const interval = setInterval(() => {
-                forceUpdate({});
-            }, 100); // Update every 100ms for smooth visuals
-
-            return () => clearInterval(interval);
-        }
-    }, [gameState]);
-
-    // Derived values for UI
     const activeBricksCount = gameObjectsRef.current.bricks.length;
-    const totalBricks = useMemo(() => {
-        let count = 0;
-        for (let row = 0; row < BRICK_ROWS; row++) {
-            for (let col = 0; col < BRICK_COLS; col++) {
-                if (level <= 3 || !((row + col) % 5 === 0 && Math.random() < 0.3)) {
-                    count++;
-                }
-            }
-        }
-        return count;
-    }, [level]);
+    const totalBricks = BRICK_ROWS * BRICK_COLS;
     const bricksDestroyed = totalBricks - activeBricksCount;
 
     return (
-        <Dashboard activeMenu="Brik Breaker Game">
+        <Dashboard activeMenu="Brick Breaker Game">
             <div
                 ref={containerRef}
                 className={`min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 text-white flex flex-col ${isFullscreen ? 'fixed inset-0 z-50' : ''}`}
             >
-                {/* Optimized Header */}
+                {/* Header */}
                 <div className="w-full px-4 py-2 flex flex-wrap justify-between items-center text-sm gap-2 bg-black/20 backdrop-blur-sm">
                     <div className="flex gap-4 items-center flex-wrap">
                         <div className="flex items-center gap-2">
@@ -977,7 +999,7 @@ const BrickBreaker = () => {
                         <div className="flex items-center gap-1">
                             <span className="text-xs">Lives:</span>
                             {Array.from({ length: Math.max(0, lives) }, (_, i) => (
-                                <span key={i} className="text-red-400 text-lg">♥</span>
+                                <span key={i} className="text-red-400 text-lg">\u2665</span>
                             ))}
                         </div>
 
@@ -1036,178 +1058,137 @@ const BrickBreaker = () => {
                             ref={gameAreaRef}
                             className="relative bg-gradient-to-b from-gray-900 to-black border-4 border-cyan-400 shadow-2xl shadow-cyan-400/25 overflow-hidden select-none"
                             style={{
-                                width: GAME_WIDTH * scale,
-                                height: GAME_HEIGHT * scale,
+                                width: GAME_WIDTH,
+                                height: GAME_HEIGHT,
                                 maxWidth: '100vw',
                                 maxHeight: '70vh'
                             }}
-                            onTouchStart={handleTouchStart}
-                            onTouchMove={handleTouchMove}
-                            onTouchEnd={handleTouchEnd}
                         >
-                            {/* Simplified background */}
+                            {/* Background */}
                             <div className="absolute inset-0 opacity-5">
                                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-transparent to-purple-500/20" />
                             </div>
 
-                            <div style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}>
-                                {gameState === 'playing' && renderObjects && (
-                                    <>
-                                        {/* Optimized Bricks */}
-                                        {renderObjects.bricks.map((brick) => {
-                                            const hitRatio = brick.hits / brick.maxHits;
+                            {gameState === 'playing' && renderObjects && (
+                                <>
+                                    {/* Bricks */}
+                                    {renderObjects.bricks.map((brick) => {
+                                        const hitRatio = brick.hits / brick.maxHits;
 
-                                            return (
-                                                <div
-                                                    key={brick.id}
-                                                    className={`absolute ${brick.color} rounded-sm shadow-md border border-white/20`}
-                                                    style={{
-                                                        left: brick.x,
-                                                        top: brick.y,
-                                                        width: brick.width,
-                                                        height: brick.height,
-                                                        opacity: Math.max(0.7, hitRatio),
-                                                        transform: `scale(${0.95 + hitRatio * 0.05})`
-                                                    }}
-                                                >
-                                                    {brick.powerUp && (
-                                                        <div className={`absolute inset-0 ${POWER_TYPES[brick.powerUp].color} opacity-40 rounded-sm animate-pulse`} />
-                                                    )}
-                                                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-sm" />
-                                                    {brick.hits > 1 && (
-                                                        <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-xs">
-                                                            {brick.hits}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            );
-                                        })}
-
-                                        {/* Optimized Balls with simplified trails */}
-                                        {renderObjects.balls.map((ball) => (
-                                            <div key={ball.id}>
-                                                {/* Simplified trail */}
-                                                {ball.trail?.slice(-2).map((pos, i) => (
-                                                    <div
-                                                        key={i}
-                                                        className="absolute bg-cyan-400/30 rounded-full"
-                                                        style={{
-                                                            left: pos.x - BALL_SIZE / 3,
-                                                            top: pos.y - BALL_SIZE / 3,
-                                                            width: BALL_SIZE / 1.5,
-                                                            height: BALL_SIZE / 1.5,
-                                                            opacity: (i + 1) / 3
-                                                        }}
-                                                    />
-                                                ))}
-                                                {/* Optimized Ball */}
-                                                <div
-                                                    className="absolute bg-gradient-to-br from-cyan-200 via-cyan-400 to-cyan-600 rounded-full shadow-lg"
-                                                    style={{
-                                                        left: ball.x - BALL_SIZE / 2,
-                                                        top: ball.y - BALL_SIZE / 2,
-                                                        width: BALL_SIZE,
-                                                        height: BALL_SIZE,
-                                                        boxShadow: '0 0 10px rgba(34, 211, 238, 0.6)'
-                                                    }}
-                                                >
-                                                    <div className="absolute inset-1 bg-gradient-to-br from-white/50 to-transparent rounded-full" />
-                                                </div>
-                                            </div>
-                                        ))}
-
-                                        {/* Optimized Paddle */}
-                                        <div
-                                            className="absolute bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 rounded-lg shadow-lg"
-                                            style={{
-                                                left: renderObjects.paddle.x,
-                                                top: GAME_HEIGHT - 80,
-                                                width: renderObjects.paddle.width,
-                                                height: PADDLE_HEIGHT,
-                                                boxShadow: '0 0 15px rgba(34, 211, 238, 0.6)'
-                                            }}
-                                        >
-                                            <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/15 to-white/30 rounded-lg" />
-                                            {renderObjects.activePowerUps.has('LASER') && (
-                                                <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-2 h-4 bg-red-400 rounded-full animate-pulse" />
-                                            )}
-                                        </div>
-
-                                        {/* Optimized Power-ups */}
-                                        {renderObjects.powerUps.map((powerUp) => (
+                                        return (
                                             <div
-                                                key={powerUp.id}
-                                                className={`absolute ${POWER_TYPES[powerUp.type].color} text-black font-bold text-xs flex items-center justify-center rounded-full shadow-lg border-2 border-white/40`}
+                                                key={brick.id}
+                                                className={`absolute ${brick.color} rounded-sm shadow-md border border-white/20`}
                                                 style={{
-                                                    left: powerUp.x - 20,
-                                                    top: powerUp.y - 20,
-                                                    width: 40,
-                                                    height: 40,
-                                                    transform: `rotate(${powerUp.rotation || 0}deg)`
+                                                    left: brick.x,
+                                                    top: brick.y,
+                                                    width: brick.width,
+                                                    height: brick.height,
+                                                    opacity: Math.max(0.7, hitRatio),
+                                                    transform: `scale(${0.95 + hitRatio * 0.05})`
                                                 }}
                                             >
-                                                <span style={{ transform: `rotate(-${powerUp.rotation || 0}deg)` }}>
-                                                    {POWER_TYPES[powerUp.type].icon}
-                                                </span>
+                                                {brick.powerUp && (
+                                                    <div className={`absolute inset-0 ${POWER_TYPES[brick.powerUp].color} opacity-40 rounded-sm animate-pulse`} />
+                                                )}
+                                                <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-sm" />
+                                                {brick.hits > 1 && (
+                                                    <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-xs">
+                                                        {brick.hits}
+                                                    </div>
+                                                )}
                                             </div>
-                                        ))}
+                                        );
+                                    })}
 
-                                        {/* Optimized Lasers */}
-                                        {renderObjects.lasers.map((laser) => (
+                                    {/* Balls */}
+                                    {renderObjects.balls.map((ball) => (
+                                        <div key={ball.id}>
                                             <div
-                                                key={laser.id}
-                                                className="absolute bg-gradient-to-t from-red-400 to-red-600 shadow-lg rounded-full"
+                                                className="absolute bg-gradient-to-br from-cyan-200 via-cyan-400 to-cyan-600 rounded-full shadow-lg"
                                                 style={{
-                                                    left: laser.x - 2,
-                                                    top: laser.y,
-                                                    width: 4,
-                                                    height: 20,
-                                                    boxShadow: '0 0 8px rgba(248, 113, 113, 0.8)'
+                                                    left: ball.x - BALL_SIZE / 2,
+                                                    top: ball.y - BALL_SIZE / 2,
+                                                    width: BALL_SIZE,
+                                                    height: BALL_SIZE,
+                                                    boxShadow: '0 0 10px rgba(34, 211, 238, 0.6)'
                                                 }}
-                                            />
-                                        ))}
-
-                                        {/* Simplified Particles */}
-                                        {renderObjects.particles.map((particle) => {
-                                            const lifeRatio = particle.life / 30;
-                                            return (
-                                                <div
-                                                    key={particle.id}
-                                                    className={`absolute ${particle.color} rounded-full`}
-                                                    style={{
-                                                        left: particle.x - particle.size / 2,
-                                                        top: particle.y - particle.size / 2,
-                                                        width: particle.size,
-                                                        height: particle.size,
-                                                        opacity: lifeRatio
-                                                    }}
-                                                />
-                                            );
-                                        })}
-
-                                        {/* Game info overlay */}
-                                        <div className="absolute top-2 left-2 text-xs text-cyan-400/70 bg-black/30 rounded px-2 py-1">
-                                            Bricks: {activeBricksCount}/{totalBricks}
+                                            >
+                                                <div className="absolute inset-1 bg-gradient-to-br from-white/50 to-transparent rounded-full" />
+                                            </div>
                                         </div>
-                                        <div className="absolute top-2 right-2 text-xs text-cyan-400/70 bg-black/30 rounded px-2 py-1">
-                                            Balls: {renderObjects.balls.length}
+                                    ))}
+
+                                    {/* Paddle */}
+                                    <div
+                                        className="absolute bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 rounded-lg shadow-lg"
+                                        style={{
+                                            left: renderObjects.paddle.x,
+                                            top: GAME_HEIGHT - 80,
+                                            width: renderObjects.paddle.width,
+                                            height: PADDLE_HEIGHT,
+                                            boxShadow: '0 0 15px rgba(34, 211, 238, 0.6)'
+                                        }}
+                                    >
+                                        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/15 to-white/30 rounded-lg" />
+                                        {renderObjects.activePowerUps.has('LASER') && (
+                                            <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-2 h-4 bg-red-400 rounded-full animate-pulse" />
+                                        )}
+                                    </div>
+
+                                    {/* Lasers */}
+                                    {renderObjects.lasers.map((laser) => (
+                                        <div
+                                            key={laser.id}
+                                            className="absolute w-2 h-10 bg-gradient-to-b from-red-400 to-red-600 rounded-full"
+                                            style={{
+                                                left: laser.x - 1,
+                                                top: laser.y - 5,
+                                                boxShadow: '0 0 8px rgba(248, 113, 113, 0.8)'
+                                            }}
+                                        />
+                                    ))}
+
+                                    {/* Power-ups */}
+                                    {renderObjects.powerUps.map((powerUp) => (
+                                        <div
+                                            key={powerUp.id}
+                                            className={`absolute ${POWER_TYPES[powerUp.type].color} text-black font-bold text-xs flex items-center justify-center rounded-full shadow-lg border-2 border-white/40`}
+                                            style={{
+                                                left: powerUp.x - 20,
+                                                top: powerUp.y - 20,
+                                                width: 40,
+                                                height: 40,
+                                                transform: `rotate(${powerUp.rotation || 0}deg)`
+                                            }}
+                                        >
+                                            <span style={{ transform: `rotate(-${powerUp.rotation || 0}deg)` }}>
+                                                {POWER_TYPES[powerUp.type].icon}
+                                            </span>
                                         </div>
-                                    </>
-                                )}
-                            </div>
+                                    ))}
+
+                                    {/* Game info overlay */}
+                                    <div className="absolute top-2 left-2 text-xs text-cyan-400/70 bg-black/30 rounded px-2 py-1">
+                                        Bricks: {activeBricksCount}/{totalBricks}
+                                    </div>
+                                    <div className="absolute top-2 right-2 text-xs text-cyan-400/70 bg-black/30 rounded px-2 py-1">
+                                        Balls: {renderObjects.balls.length}
+                                    </div>
+                                </>
+                            )}
 
                             {/* Menu Screen */}
                             {gameState === 'menu' && (
-                                <div className="absolute inset-0 bg-gradient-to-br from-black/95 via-purple-900/90 to-black/95 flex items-center justify-center"
-                                    style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}>
+                                <div className="absolute inset-0 bg-gradient-to-br from-black/95 via-purple-900/90 to-black/95 flex items-center justify-center">
                                     <div className="text-center p-8 max-w-md">
                                         <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-6 animate-pulse">
                                             BRICK BREAKER
                                         </h1>
                                         <div className="mb-6 text-gray-300 space-y-2 text-sm">
-                                            <p>Use ←→ or A/D to move paddle</p>
+                                            <p>Use \u2190\u2192 or A/D to move paddle</p>
                                             <p>SPACE to fire lasers (with power-up)</p>
-                                            <p>Press P to pause • F for fullscreen • M for sound</p>
+                                            <p>Press P to pause \u2022 F for fullscreen \u2022 M for sound</p>
                                         </div>
                                         <button
                                             onClick={startNewGame}
@@ -1225,8 +1206,7 @@ const BrickBreaker = () => {
 
                             {/* Pause Screen */}
                             {gameState === 'paused' && (
-                                <div className="absolute inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center"
-                                    style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}>
+                                <div className="absolute inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center">
                                     <div className="text-center p-6">
                                         <Pause className="w-16 h-16 mx-auto mb-4 text-cyan-400 animate-pulse" />
                                         <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
@@ -1252,8 +1232,7 @@ const BrickBreaker = () => {
 
                             {/* Game Over Screen */}
                             {gameState === 'gameOver' && (
-                                <div className="absolute inset-0 bg-gradient-to-br from-red-900/95 to-black/95 backdrop-blur-md flex items-center justify-center"
-                                    style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}>
+                                <div className="absolute inset-0 bg-gradient-to-br from-red-900/95 to-black/95 backdrop-blur-md flex items-center justify-center">
                                     <div className="text-center p-6 max-w-sm">
                                         <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">
                                             GAME OVER
@@ -1263,9 +1242,6 @@ const BrickBreaker = () => {
                                                 Score: {score.toLocaleString()}
                                             </p>
                                             <p className="text-xl text-gray-300">Level: {level}</p>
-                                            <p className="text-base text-gray-400">
-                                                Accuracy: {Math.round((bricksDestroyed / Math.max(bricksDestroyed + 1, 1)) * 100)}%
-                                            </p>
                                         </div>
                                         {score > highScore && (
                                             <div className="mb-6 animate-bounce">
@@ -1295,8 +1271,7 @@ const BrickBreaker = () => {
 
                             {/* Level Complete Screen */}
                             {gameState === 'levelComplete' && (
-                                <div className="absolute inset-0 bg-gradient-to-br from-green-900/95 to-emerald-900/95 backdrop-blur-md flex items-center justify-center"
-                                    style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}>
+                                <div className="absolute inset-0 bg-gradient-to-br from-green-900/95 to-emerald-900/95 backdrop-blur-md flex items-center justify-center">
                                     <div className="text-center p-6">
                                         <Trophy className="w-20 h-20 mx-auto mb-4 text-yellow-400 animate-bounce" />
                                         <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
@@ -1304,17 +1279,17 @@ const BrickBreaker = () => {
                                         </h2>
                                         <div className="mb-4 space-y-1 bg-black/30 rounded-lg p-4">
                                             <p className="text-xl md:text-2xl text-white font-bold">
-                                                Level {level - 1} Cleared!
+                                                Level {level} Cleared!
                                             </p>
                                             <p className="text-lg text-gray-300">
-                                                Bonus: +{(1000 * (level - 1)).toLocaleString()} points
+                                                Bonus: +{(1000 * level).toLocaleString()} points
                                             </p>
                                             <p className="text-base text-green-300">
                                                 Total Score: {score.toLocaleString()}
                                             </p>
                                         </div>
                                         <p className="text-xl text-yellow-400 animate-pulse">
-                                            Advancing to Level {level}...
+                                            Advancing to Level {level + 1}...
                                         </p>
                                     </div>
                                 </div>
@@ -1323,7 +1298,7 @@ const BrickBreaker = () => {
                     </div>
                 </div>
 
-                {/* Simplified Power-up Legend */}
+                {/* Power-up Legend */}
                 <div className="px-4 py-3 bg-black/20 backdrop-blur-sm border-t border-gray-700/30">
                     <h3 className="text-center text-lg font-bold mb-3 text-cyan-400">Power-ups Guide</h3>
                     <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs max-w-4xl mx-auto">
@@ -1338,7 +1313,7 @@ const BrickBreaker = () => {
                     </div>
 
                     <div className="mt-3 text-center text-xs text-gray-500">
-                        P: Pause • F: Fullscreen • M: Sound • Space: Laser
+                        P: Pause \u2022 F: Fullscreen \u2022 M: Sound \u2022 Space: Laser
                     </div>
                 </div>
             </div>
