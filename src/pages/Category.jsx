@@ -136,11 +136,11 @@ const Category = () => {
                             <div className="flex items-center space-x-3">
                                 <button
                                     onClick={() => setOpenAddCategoryModal(true)}
-                                    className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                                    className="add-btn"
                                 >
-                                    <Plus size={18} />
-                                    <span className="font-medium">Add Category</span>
+                                    <Plus size={15} className="text-lg" /> Add Category
                                 </button>
+
                             </div>
                         </div>
                     </div>
