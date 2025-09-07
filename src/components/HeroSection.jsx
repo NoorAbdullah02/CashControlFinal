@@ -11,7 +11,7 @@ const HeroSection = () => {
                     <span className="bg-gradient-to-r from-slate-800 to-gray-700 bg-clip-text text-transparent font-semibold">
                         Powered by Advanced AI Technology
                     </span>
-                    <Sparkles className="h-4 w-4 text-emerald-500 animate-spin" style={{ animationDuration: '3s' }} />
+                    <Sparkles className="h-4 w-4 text-emerald-500 animate-spin" style={{ animationDuration: '2s' }} />
                 </div>
 
                 {/* Revolutionary heading with sophisticated gradients */}

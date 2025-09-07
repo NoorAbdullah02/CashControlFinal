@@ -1,37 +1,47 @@
 import { useState, useEffect } from "react";
 import EmojiPickerPopup from "./EmojiPickerPopup.jsx";
 import Input from "./Input.jsx";
+import { LoaderCircle } from "lucide-react";
 
-// Add 'categories' prop
 const AddExpenseForm = ({ onAddExpense, categories }) => {
-    const [expense, setExpense] = useState({ // Renamed 'income' state to 'expense' for clarity
+    const [expense, setExpense] = useState({
         name,
-        categoryId: "", // Changed from 'category' to 'categoryId'
+        categoryId: "",
         amount: "",
         date: "",
-        icon: "", // Icon might be associated with the selected category, or kept separate for custom entries
+        icon: "",
     });
 
-    // Effect to set a default category if categories are loaded and none is selected
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         if (categories && categories.length > 0 && !expense.categoryId) {
-            // Automatically select the first category as default if none is chosen
-            setExpense((prev) => ({ ...prev, categoryId: categories[0].id })); // Use categories[0].id for MySQL
+
+            setExpense((prev) => ({ ...prev, categoryId: categories[0].id }));
         }
     }, [categories, expense.categoryId]);
 
-    const handleChange = (key, value) => setExpense({ ...expense, [key]: value }); // Changed setIncome to setExpense
+    const handleChange = (key, value) => setExpense({ ...expense, [key]: value });
 
-    // Map categories to the format expected by the reusable Input dropdown
+    const handleAddExpense = async () => {
+        setLoading(true);
+        try {
+            await onAddExpense(expense);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+
     const categoryOptions = categories.map((cat) => ({
-        value: cat.id, // Correct for MySQL 'id'
-        label: `${cat.name}`, // Display icon and name in dropdown
+        value: cat.id,
+        label: `${cat.name}`,
     }));
 
     return (
         <div>
             <EmojiPickerPopup
-                icon={expense.icon} // Uses expense.icon now
+                icon={expense.icon}
                 onSelect={(selectedIcon) => handleChange("icon", selectedIcon)}
             />
 
@@ -70,11 +80,19 @@ const AddExpenseForm = ({ onAddExpense, categories }) => {
 
             <div className="flex justify-end mt-6">
                 <button
-                    type="button"
-                    className="add-btn add-btn-fill"
-                    onClick={() => onAddExpense(expense)} // Changed income to expense
-                >
-                    Add Expense
+                    onClick={handleAddExpense}
+                    disabled={loading}
+                    className="add-btn add-btn-fill">
+                    {loading ? (
+                        <>
+                            <LoaderCircle className="w-4 h-4 animate-spin" />
+                            Adding...
+                        </>
+                    ) : (
+                        <>
+                            Add Expense
+                        </>
+                    )}
                 </button>
             </div>
         </div>

@@ -170,7 +170,7 @@ const Header = () => {
                                 </a>
                                 <a
                                     href="/signup"
-                                    className="group relative bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white px-8 py-3 rounded-2xl font-bold shadow-xl hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-500 hover:scale-105 overflow-hidden"
+                                    className="relative inline-block px-8 py-3 rounded-xl bg-blue-600 text-white font-semibold shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300"
                                 >
                                     <span className="relative z-10 flex items-center gap-2">
                                         Get Started
