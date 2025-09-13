@@ -42,16 +42,17 @@ export const SIDE_BAR_DATA = [
     },
     {
         id: "06",
-        label: "Brik Breaker Game",
-        icon: LucideGamepad,
-        path: "/brick-breaker", // New route
-    },
-    {
-        id: "07",
         label: "AI Assistant",
         icon: Bot,
         path: "/vapi-ai", // New route
     },
+    {
+        id: "07",
+        label: "Brick Breaker",
+        icon: LucideGamepad,
+        path: "/brick-breaker", // New route
+    },
+
 
 
 ];

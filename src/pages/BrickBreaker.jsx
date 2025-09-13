@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { Play, Pause, RotateCcw, Trophy, Maximize2, Minimize2, Volume2, VolumeX, Monitor, Smartphone, ArrowRight, Gamepad2, Mouse, Keyboard, Laptop, AlertTriangle } from 'lucide-react';
+import { Play, Pause, RotateCcw, Trophy, Maximize2, Minimize2, Volume2, VolumeX, Monitor } from 'lucide-react';
 import Dashboard from "../components/Dashboard.jsx";
 import { useUser } from "../hooks/useUser.jsx";
 
@@ -16,20 +15,17 @@ const BRICK_ROWS = 6;
 const BRICK_COLS = 10;
 const FPS = 60;
 
-
 // Simplified power-up types for better performance
 const POWER_TYPES = {
-    MULTI_BALL: { color: 'bg-yellow-400', icon: '\u25cf\u25cf\u25cf', effect: 'Multi Ball', duration: 0 },
-    BIG_PADDLE: { color: 'bg-blue-400', icon: '\u2501\u2501\u2501', effect: 'Big Paddle', duration: 400 },
-    SLOW_BALL: { color: 'bg-green-400', icon: '\u25d0', effect: 'Slow Ball', duration: 300 },
-    EXTRA_LIFE: { color: 'bg-red-400', icon: '\u2665', effect: 'Extra Life', duration: 0 },
-    LASER: { color: 'bg-purple-400', icon: '\u2191\u2191\u2191', effect: 'Laser Mode', duration: 250 }
+    MULTI_BALL: { color: 'bg-yellow-400', icon: '●●●', effect: 'Multi Ball', duration: 0 },
+    BIG_PADDLE: { color: 'bg-blue-400', icon: '━━━', effect: 'Big Paddle', duration: 400 },
+    SLOW_BALL: { color: 'bg-green-400', icon: '◐', effect: 'Slow Ball', duration: 300 },
+    EXTRA_LIFE: { color: 'bg-red-400', icon: '♥', effect: 'Extra Life', duration: 0 },
+    LASER: { color: 'bg-purple-400', icon: '↑↑↑', effect: 'Laser Mode', duration: 250 }
 };
-
 
 const BrickBreaker = () => {
     useUser();
-
 
     const MobileRestriction = () => (
         <div className="lg:hidden min-h-screen bg-slate-900 flex items-center justify-center p-6">
@@ -39,16 +35,14 @@ const BrickBreaker = () => {
                     Desktop Required
                 </h1>
                 <p className="text-white/70 text-lg mb-2">
-                    This editor is only usable on desktop.
+                    This game is optimized for desktop play.
                 </p>
                 <p className="text-white/50 text-sm">
-                    Please use a larger screen to access the full editing experience.
+                    Please use a larger screen to access the full gaming experience.
                 </p>
             </div>
         </div>
     );
-
-
 
     const gameAreaRef = useRef(null);
     const animationFrameRef = useRef(null);
@@ -87,9 +81,8 @@ const BrickBreaker = () => {
     // Input handling
     const keys = useRef({ left: false, right: false, space: false });
     const paddleTarget = useRef(GAME_WIDTH / 2 - PADDLE_WIDTH / 2);
-    const scale = useRef(1);
 
-    // Audio
+    // Audio context
     const audioContext = useRef(null);
 
     const playSound = useCallback((frequency, duration = 100, type = 'sine') => {
@@ -122,6 +115,12 @@ const BrickBreaker = () => {
         } catch (error) {
             console.warn('AudioContext creation failed:', error);
         }
+
+        return () => {
+            if (audioContext.current && audioContext.current.state !== 'closed') {
+                audioContext.current.close();
+            }
+        };
     }, []);
 
     // Optimized brick initialization
@@ -140,7 +139,7 @@ const BrickBreaker = () => {
                     y: row * (BRICK_HEIGHT + 5) + 60,
                     width: BRICK_WIDTH,
                     height: BRICK_HEIGHT,
-                    color: colors[row],
+                    color: colors[row % colors.length], // Fixed potential index issue
                     hits: Math.min(Math.floor(level / 4) + 1, 3),
                     maxHits: Math.min(Math.floor(level / 4) + 1, 3),
                     powerUp: Math.random() < powerUpChance ?
@@ -261,6 +260,9 @@ const BrickBreaker = () => {
                 objects.activePowerUps.add('LASER');
                 objects.powerUpTimers.set('LASER', POWER_TYPES.LASER.duration);
                 playSound(600, 100);
+                break;
+
+            default:
                 break;
         }
     }, [createBall, playSound]);
@@ -412,6 +414,7 @@ const BrickBreaker = () => {
             }
         }
 
+        // Update power-up timers
         objects.powerUpTimers.forEach((timeLeft, powerType) => {
             if (timeLeft <= 0) {
                 objects.activePowerUps.delete(powerType);
@@ -425,6 +428,7 @@ const BrickBreaker = () => {
             }
         });
 
+        // Handle laser shooting
         if (keys.current.space && objects.activePowerUps.has('LASER')) {
             const currentTime = Date.now();
             if (currentTime - lastLaserTime.current > 300) {
@@ -441,6 +445,7 @@ const BrickBreaker = () => {
             }
         }
 
+        // Update lasers
         for (let i = objects.lasers.length - 1; i >= 0; i--) {
             const laser = objects.lasers[i];
             laser.y += laser.dy * timeScale;
@@ -450,6 +455,7 @@ const BrickBreaker = () => {
                 continue;
             }
 
+            // Laser brick collision
             for (let j = objects.bricks.length - 1; j >= 0; j--) {
                 const brick = objects.bricks[j];
 
@@ -485,10 +491,12 @@ const BrickBreaker = () => {
             }
         }
 
+        // Update score
         if (scoreToAdd > 0) {
             setScore(prev => prev + scoreToAdd);
         }
 
+        // Check game over conditions
         if (objects.balls.length === 0) {
             const newLives = lives - 1;
             if (newLives <= 0) {
@@ -515,6 +523,7 @@ const BrickBreaker = () => {
             }
         }
 
+        // Check level complete
         if (objects.bricks.length === 0) {
             setGameState('levelComplete');
             playSound(1000, 200);
@@ -529,10 +538,12 @@ const BrickBreaker = () => {
         animationFrameRef.current = requestAnimationFrame(gameLoop);
     }, [checkCollision, applyPowerUp, level, lives, score, highScore, resetBall, resetGame, playSound]);
 
+    // Update game state reference
     useEffect(() => {
         gameStateRef.current = { state: gameState };
     }, [gameState]);
 
+    // Game loop effect
     useEffect(() => {
         if (gameState === 'playing') {
             lastTimeRef.current = performance.now();
@@ -546,6 +557,7 @@ const BrickBreaker = () => {
         };
     }, [gameState, gameLoop]);
 
+    // Keyboard event handling
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.repeat) return;
@@ -631,10 +643,12 @@ const BrickBreaker = () => {
         return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
     }, []);
 
+    // Initialize game
     useEffect(() => {
         resetGame();
     }, [resetGame]);
 
+    // Force render updates during gameplay
     const [, forceUpdate] = useState({});
     useEffect(() => {
         if (gameState === 'playing') {
@@ -646,6 +660,7 @@ const BrickBreaker = () => {
         }
     }, [gameState]);
 
+    // Memoized render objects
     const renderObjects = useMemo(() => {
         if (gameState !== 'playing') return null;
 
@@ -669,7 +684,7 @@ const BrickBreaker = () => {
     return (
         <>
             <MobileRestriction />
-            <Dashboard activeMenu="Brick Breaker Game">
+            <Dashboard activeMenu="Brick Breaker">
                 <div
                     ref={containerRef}
                     className={`min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 text-white flex flex-col ${isFullscreen ? 'fixed inset-0 z-50' : ''}`}
@@ -690,7 +705,7 @@ const BrickBreaker = () => {
                             <div className="flex items-center gap-1">
                                 <span className="text-xs">Lives:</span>
                                 {Array.from({ length: Math.max(0, lives) }, (_, i) => (
-                                    <span key={i} className="text-red-400 text-lg">\u2665</span>
+                                    <span key={i} className="text-red-400 text-lg">♥</span>
                                 ))}
                             </div>
 
@@ -877,9 +892,9 @@ const BrickBreaker = () => {
                                                 BRICK BREAKER
                                             </h1>
                                             <div className="mb-6 text-gray-300 space-y-2 text-sm">
-                                                <p>Use \u2190\u2192 or A/D to move paddle</p>
+                                                <p>Use ←→ or A/D to move paddle</p>
                                                 <p>SPACE to fire lasers (with power-up)</p>
-                                                <p>Press P to pause \u2022 F for fullscreen \u2022 M for sound</p>
+                                                <p>Press P to pause • F for fullscreen • M for sound</p>
                                             </div>
                                             <button
                                                 onClick={startNewGame}
@@ -1004,7 +1019,7 @@ const BrickBreaker = () => {
                         </div>
 
                         <div className="mt-3 text-center text-xs text-gray-500">
-                            P: Pause \u2022 F: Fullscreen \u2022 M: Sound \u2022 Space: Laser
+                            P: Pause • F: Fullscreen • M: Sound • Space: Laser
                         </div>
                     </div>
                 </div>
