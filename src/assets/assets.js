@@ -52,6 +52,12 @@ export const SIDE_BAR_DATA = [
         icon: LucideGamepad,
         path: "/brick-breaker", // New route
     },
+    {
+        id: "08",
+        label: "Car Racing",
+        icon: LucideGamepad,
+        path: "/car-racing", // Fixed route - should match the game
+    },
 
 
 
