@@ -190,7 +190,7 @@ const VapiAI = () => {
 
     const API_KEY = "AIzaSyDoMVhmBOUfFfZ60qGj6TO1F8yyE0hdbBQ";  //Gemini API KEY
 
-    //const API_KEY = "sk-3d3b62e609de48b3bdf9c4f6f8c71881"; // DeepSick API Key
+    // const API_KEY = "sk-GSHWIHUganGbkJ72zj94ymNZ1wUkhTeQGkdcZFGEBYjmsPcs"; // DeepSick API Key
 
 
     const scrollToBottom = () => {
