@@ -27,5 +27,9 @@ export const API_ENDPOINTS = {
     EMAIL_EXPENSE: "/email/expense-excel",
     APPLY_FILTERS: "/filter",
     DASHBOARD_DATA: "/dashboard",
-    UPLOAD_IMAGE: `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`
+    UPLOAD_IMAGE: `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+    // FORGET_PASSWORD: "/forgot-password",
+    // RESET_PASSWORD: "/reset-password"
+    FORGET_PASSWORD: `${BASE_URL}/forgot-password`,
+    RESET_PASSWORD: `${BASE_URL}/reset-password`
 }

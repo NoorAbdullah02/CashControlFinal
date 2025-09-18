@@ -11,6 +11,8 @@ import LandingPage from "./pages/LandingPage.jsx";
 import VapiAI from "./pages/VapiAI.jsx";
 import BrickBreaker from "./pages/BrickBreaker.jsx";
 import CarRacingGame from "./pages/CarRacing.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 
 
 const App = () => {
@@ -31,6 +33,8 @@ const App = () => {
                     <Route path="/vapi-ai" element={<VapiAI />} />
                     <Route path="/brick-breaker" element={<BrickBreaker />} />
                     <Route path="/car-racing" element={<CarRacingGame />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
 
                 </Routes>
             </BrowserRouter>
