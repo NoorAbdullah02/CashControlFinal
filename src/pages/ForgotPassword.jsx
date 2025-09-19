@@ -61,7 +61,7 @@ const ForgotPassword = () => {
             setSuccess(true);
         } catch (error) {
             console.error('Full error:', error);
-            setMessage(`Request error: ${error.message}`);
+            setMessage(`Request error: ${error.message}`);  
         } finally {
             setLoading(false);
         }
