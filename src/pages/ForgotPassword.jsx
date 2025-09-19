@@ -39,11 +39,22 @@ const ForgotPassword = () => {
                 body: JSON.stringify({ email: email.trim() })
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
+            // if (!response.ok) {
+            //     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            // }
 
             const data = await response.json();
+
+            if (!response.ok) {
+                // Handle specific cases
+                if (data.message && data.message.toLowerCase().includes('not found')) {
+                    setMessage("Oops! We couldn’t find an account with that email 😢. Please double-check and try again.");
+                } else {
+                    setMessage(data.message || "Something went wrong. Please try again.");
+                }
+                setSuccess(false);
+                return;
+            }
 
             setMessage(data.message || 'Reset link sent successfully!');
             setEmail('');
