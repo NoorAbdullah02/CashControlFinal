@@ -306,23 +306,23 @@ npm run analyze
 <div align="center">
 
 ### **💼 Dashboard Overview**
-![Dashboard Preview](https://via.placeholder.com/800x400/1e293b/ffffff?text=📊+Beautiful+Dashboard+Preview)
+![Dashboard Preview](https://github.com/NoorAbdullah02/NoorAbdullah02/blob/main/DashboardCashcontrol.png)
 
 *Clean, intuitive dashboard with real-time financial insights*
 
 ---
 
 ### **📊 Interactive Charts**
-![Charts Preview](https://via.placeholder.com/800x400/0f766e/ffffff?text=📈+Interactive+Charts+%26+Analytics)
+![Charts Preview](https://github.com/NoorAbdullah02/NoorAbdullah02/blob/main/InteractiveCharts.png)
 
 *Powered by Recharts for stunning data visualization*
 
 ---
 
-### **💳 Transaction Management**
-![Transactions Preview](https://via.placeholder.com/800x400/7c2d12/ffffff?text=💰+Smart+Transaction+Tracking)
+### **💳 Login Management**
+![Login Preview](https://github.com/NoorAbdullah02/NoorAbdullah02/blob/main/TransactionManagemnt.png)
 
-*Effortless transaction tracking with emoji categories*
+*Effortless Login tracking with Spring sequirty*
 
 </div>
 
