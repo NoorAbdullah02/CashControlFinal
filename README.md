@@ -422,7 +422,7 @@ Create a `.env` file in the root directory:
 ```bash
 # 🌍 Application Configuration
 
-API_KEY=GEMINI_API_KEY
+API_KEY_GEMINI=GEMINI_API_KEY_FOR_PRODUCTION
 ```
 
 ### **Customization**
