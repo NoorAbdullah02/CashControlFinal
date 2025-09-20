@@ -1,4 +1,4 @@
-# 💰 Cash Control - Money Manager Web App
+# 💰 Cash Control - Cash Control Financial App
 
 <div align="center">
 
