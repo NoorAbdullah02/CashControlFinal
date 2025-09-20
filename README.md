@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Cash Control Hero](https://via.placeholder.com/1000x400/0f172a/ffffff?text=💰+Cash+Control+Web+App+💰)
+![Cash Control Hero](https://github.com/NoorAbdullah02/NoorAbdullah02/blob/main/cashcontrolHero.png)
 
 ### ✨ **Your Personal Finance Revolution Starts Here** ✨
 
