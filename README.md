@@ -10,7 +10,7 @@
 
 ---
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_App-brightgreen?style=for-the-badge&logoColor=white)](https://your-demo-url.vercel.app)
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_App-brightgreen?style=for-the-badge&logoColor=white)](https://cash-control-final.vercel.app/Home)
 [![GitHub Stars](https://img.shields.io/github/stars/NoorAbdullah02/CashControlFinal?style=for-the-badge&logo=github&color=yellow)](https://github.com/NoorAbdullah02/CashControlFinal/stargazers)
 [![Version](https://img.shields.io/badge/version-2.0.0-blue?style=for-the-badge&logo=semantic-release)](https://github.com/NoorAbdullah02/CashControlFinal/releases)
 [![License](https://img.shields.io/badge/license-MIT-purple?style=for-the-badge&logo=mit)](LICENSE)
@@ -199,9 +199,9 @@ Welcome to **Cash Control**, the most intuitive and powerful money management we
 ```
 CashControlFinal/
 │
-├── 📂 public/                    # Static assets
+├── 📂 public/                   # Static assets
 │   ├── 🖼️ images/               # App images & icons
-│   ├── 🎨 main.svg              # Main SVG asset
+│   ├── 🎨 vercel.svg            # Main SVG asset
 │   └── 📄 index.html            # Entry HTML file
 │
 ├── 📂 src/                       # Source code
@@ -215,9 +215,9 @@ CashControlFinal/
 │   ├── 📂 pages/                 # Application pages
 │   │   ├── 🏠 Home.jsx           # Landing page
 │   │   ├── 📊 Dashboard.jsx      # Main dashboard
-│   │   ├── 💰 Transactions.jsx   # Transaction management
-│   │   ├── 📈 Analytics.jsx      # Data analytics
-│   │   └── ⚙️ Settings.jsx      # User settings
+│   │   ├── 💰 Income.jsx         # Income Page
+│   │   ├── 📈 Expense.jsx        # Expense Page
+│   │   └── ⚙️ AiPage.jsx         # Ai Page
 │   │
 │   ├── 📂 hooks/                 # Custom React hooks
 │   ├── 📂 utils/                 # Utility functions
@@ -347,7 +347,7 @@ vercel
 ### **Other Platforms**
 
 <details>
-<summary><strong>🚀 Netlify</strong></summary>
+<summary><strong>🚀 Vercel</strong></summary>
 
 ```bash
 # Build the project
@@ -421,25 +421,8 @@ Create a `.env` file in the root directory:
 
 ```bash
 # 🌍 Application Configuration
-VITE_APP_TITLE="Cash Control"
-VITE_APP_VERSION="2.0.0"
-VITE_APP_DESCRIPTION="Your Personal Finance Manager"
 
-# 🔗 API Configuration
-VITE_API_BASE_URL="http://localhost:8080/api"
-VITE_API_TIMEOUT=10000
-
-# 🔐 Authentication
-VITE_JWT_SECRET="your-super-secret-key"
-VITE_JWT_EXPIRATION="7d"
-
-# 🎨 Theme Configuration
-VITE_DEFAULT_THEME="light"
-VITE_ENABLE_DARK_MODE=true
-
-# 📊 Analytics (Optional)
-VITE_GA_TRACKING_ID="G-XXXXXXXXXX"
-VITE_ENABLE_ANALYTICS=true
+API_KEY=GEMINI_API_KEY
 ```
 
 ### **Customization**
@@ -654,10 +637,10 @@ copies or substantial portions of the Software.
 
 ### **🌐 Connect With Me**
 
-[![Portfolio](https://img.shields.io/badge/Portfolio-Visit-FF5722?style=for-the-badge&logo=web&logoColor=white)](https://noorabdullah.dev)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Visit-FF5722?style=for-the-badge&logo=web&logoColor=white)](https://noor-abdullah.vercel.app/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/noorabdullah02)
 [![Twitter](https://img.shields.io/badge/Twitter-Follow-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/noorabdullah02)
-[![Email](https://img.shields.io/badge/Email-Contact-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:noor.abdullah.dev@gmail.com)
+[![Email](https://img.shields.io/badge/Email-Contact-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:sheikhnoorabdullah02@gmail.com)
 
 </div>
 
@@ -675,6 +658,6 @@ copies or substantial portions of the Software.
 
 ---
 
-![Footer Wave](https://via.placeholder.com/1000x100/3b82f6/ffffff?text=💰+Happy+Coding!+💰)
+![Footer Wave](https://github.com/NoorAbdullah02/NoorAbdullah02/blob/main/Banner.webp)
 
 </div>
