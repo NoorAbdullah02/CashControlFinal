@@ -146,12 +146,12 @@ Welcome to **Cash Control**, the most intuitive and powerful money management we
   <br/><sub>HTTP Client</sub>
 </td>
 <td align="center" width="140px">
-  <img src="https://reactrouter.com/_brand/react-router-mark-color.svg" width="60px" alt="React Router"/>
+  <img src="https://img.icons8.com/color/96/000000/react-native.png" width="60px" alt="React Router"/>
   <br/><strong>React Router 7.6.3</strong>
   <br/><sub>Routing</sub>
 </td>
 <td align="center" width="140px">
-  <img src="https://recharts.org/static/logo.svg" width="60px" alt="Recharts"/>
+  <img src="https://img.icons8.com/color/96/000000/react-native.png" width="60px" alt="Recharts"/>
   <br/><strong>Recharts 3.0.2</strong>
   <br/><sub>Charts</sub>
 </td>
@@ -178,7 +178,7 @@ Welcome to **Cash Control**, the most intuitive and powerful money management we
   <br/><sub>Icon Library</sub>
 </td>
 <td align="center" width="140px">
-  <img src="https://react-hot-toast.com/favicon.ico" width="60px" alt="Hot Toast"/>
+  <img src="https://img.icons8.com/color/96/000000/react-native.png" width="60px" alt="Hot Toast"/>
   <br/><strong>Hot Toast 2.5.2</strong>
   <br/><sub>Notifications</sub>
 </td>
