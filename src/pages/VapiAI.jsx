@@ -188,7 +188,7 @@ const VapiAI = () => {
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef(null);
 
-    const API_KEY = API_KEY_GEMINI;     //Gemini API KEY
+    const API_KEY = "AIzaSyDoMVhmBOUfFfZ60qGj6TO1F8yyE0hdbBQ";     //Gemini API KEY
 
     // const API_KEY = "sk-GSHWIHUganGbkJ72zj94ymNZ1wUkhTeQGkdcZFGEBYjmsPcs"; // DeepSick API Key
 
@@ -380,4 +380,3 @@ const VapiAI = () => {
 };
 
 export default VapiAI;
-
