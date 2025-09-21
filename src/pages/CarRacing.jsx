@@ -35,6 +35,7 @@ const CarRacingGame = () => {
     useUser();
 
     const MobileRestriction = () => (
+            <Dashboard>
         <div className="lg:hidden min-h-screen bg-slate-900 flex items-center justify-center p-6">
             <div className="text-center max-w-md">
                 <Monitor className="h-16 w-16 text-cyan-400 mx-auto mb-6" />
@@ -43,6 +44,7 @@ const CarRacingGame = () => {
                 <p className="text-white/50 text-sm">Please use a larger screen for the best racing experience.</p>
             </div>
         </div>
+        </Dashboard>
     );
 
     const gameAreaRef = useRef(null);
@@ -515,9 +517,23 @@ const CarRacingGame = () => {
     const speedKmh = Math.round(gameObjectsRef.current.playerCar.speed * 10);
     const distanceKm = Math.round(distance / 100);
 
+     const [isMobile, setIsMobile] = React.useState(false);
+    
+        React.useEffect(() => {
+            const checkMobile = () => setIsMobile(window.innerWidth < 1024); // lg breakpoint
+            checkMobile();
+            window.addEventListener('resize', checkMobile);
+            return () => window.removeEventListener('resize', checkMobile);
+        }, []);
+    
+        // If mobile, render only the MobileRestriction component
+        if (isMobile) {
+            return <MobileRestriction />;
+        }
+    
+
     return (
         <>
-            <MobileRestriction />
             <Dashboard activeMenu="Car Racing">
                 <div
                     ref={containerRef}

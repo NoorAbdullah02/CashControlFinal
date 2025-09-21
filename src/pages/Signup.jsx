@@ -180,7 +180,7 @@ const Signup = () => {
                                         <Input
                                             value={fullName}
                                             onChange={(e) => setFullName(e.target.value)}
-                                            label="Full Name"
+                                            label="Enter Your Nick Name"
                                             placeholder="Noor Abdullah"
                                             type="text"
                                         />
@@ -188,7 +188,7 @@ const Signup = () => {
                                         <Input
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
-                                            label="Email Address"
+                                            label="Please Enter your Email Address"
                                             placeholder="noor@bauet.com"
                                             type="email"
                                         />
@@ -196,7 +196,7 @@ const Signup = () => {
                                         <Input
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
-                                            label="Password"
+                                            label="Enter a Strong Password"
                                             placeholder="Create a strong password"
                                             type="password"
                                         />

@@ -73,7 +73,7 @@ const AddExpenseForm = ({ onAddExpense, categories }) => {
             <Input
                 value={expense.date}
                 onChange={({ target }) => handleChange("date", target.value)}
-                label="Date"
+                label=""
                 placeholder=""
                 type="date"
             />

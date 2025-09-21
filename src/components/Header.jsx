@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, ExternalLink, ArrowRight, Star } from "lucide-react";
+import { Menu, X, ExternalLink, ArrowRight, Star, Sparkles, Zap, Shield } from "lucide-react";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,7 +41,7 @@ const Header = () => {
 
     const renderNavLink = (link, isMobile = false) => {
         if (isMobile) {
-            const mobileClasses = "group relative py-4 px-6 text-gray-700 font-medium transition-all duration-500 flex items-center justify-between rounded-2xl hover:bg-gradient-to-r hover:from-purple-500/10 hover:via-pink-500/5 hover:to-blue-500/10 hover:text-purple-700 hover:shadow-lg hover:shadow-purple-500/10";
+            const mobileClasses = "group relative py-4 px-6 text-slate-700 font-semibold transition-all duration-500 flex items-center justify-between rounded-2xl hover:bg-gradient-to-r hover:from-emerald-500/10 hover:via-teal-500/5 hover:to-cyan-500/10 hover:text-emerald-700 hover:shadow-lg hover:shadow-emerald-500/10";
 
             if (link.type === 'external') {
                 return (
@@ -51,10 +51,10 @@ const Header = () => {
                         className={mobileClasses}
                     >
                         <span className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
                             {link.name}
                         </span>
-                        <ExternalLink className="h-4 w-4 opacity-50 group-hover:opacity-100 group-hover:text-purple-600 transition-all duration-300 group-hover:translate-x-1" />
+                        <ExternalLink className="h-4 w-4 opacity-50 group-hover:opacity-100 group-hover:text-emerald-600 transition-all duration-300 group-hover:translate-x-1" />
                     </button>
                 );
             } else {
@@ -66,17 +66,17 @@ const Header = () => {
                         className={mobileClasses}
                     >
                         <span className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
                             {link.name}
                         </span>
-                        <ArrowRight className="h-4 w-4 opacity-50 group-hover:opacity-100 group-hover:text-purple-600 transition-all duration-300 group-hover:translate-x-1" />
+                        <ArrowRight className="h-4 w-4 opacity-50 group-hover:opacity-100 group-hover:text-emerald-600 transition-all duration-300 group-hover:translate-x-1" />
                     </a>
                 );
             }
         }
 
         // Desktop navigation
-        const desktopClasses = "group relative px-6 py-3 text-gray-700 font-medium hover:text-gray-900 transition-all duration-500 rounded-2xl hover:bg-white/40 hover:backdrop-blur-xl hover:shadow-lg hover:shadow-purple-500/10";
+        const desktopClasses = "group relative px-6 py-3 text-slate-700 font-semibold hover:text-slate-900 transition-all duration-500 rounded-2xl hover:bg-white/60 hover:backdrop-blur-xl hover:shadow-lg hover:shadow-emerald-500/10 hover:border hover:border-emerald-200/30";
 
         if (link.type === 'external') {
             return (
@@ -89,8 +89,8 @@ const Header = () => {
                         {link.name}
                         <ExternalLink className="h-3 w-3 opacity-60 group-hover:opacity-100 transition-all duration-300 group-hover:rotate-12" />
                     </span>
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-600/0 via-pink-600/0 to-blue-600/0 group-hover:from-purple-600/5 group-hover:via-pink-600/5 group-hover:to-blue-600/5 transition-all duration-500"></div>
-                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-full group-hover:w-8 transition-all duration-500"></div>
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-600/0 via-teal-600/0 to-cyan-600/0 group-hover:from-emerald-600/5 group-hover:via-teal-600/5 group-hover:to-cyan-600/5 transition-all duration-500"></div>
+                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 rounded-full group-hover:w-8 transition-all duration-500"></div>
                 </button>
             );
         } else {
@@ -101,8 +101,8 @@ const Header = () => {
                     className={desktopClasses}
                 >
                     <span className="relative z-10">{link.name}</span>
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-600/0 via-pink-600/0 to-blue-600/0 group-hover:from-purple-600/5 group-hover:via-pink-600/5 group-hover:to-blue-600/5 transition-all duration-500"></div>
-                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-full group-hover:w-8 transition-all duration-500"></div>
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-600/0 via-teal-600/0 to-cyan-600/0 group-hover:from-emerald-600/5 group-hover:via-teal-600/5 group-hover:to-cyan-600/5 transition-all duration-500"></div>
+                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 rounded-full group-hover:w-8 transition-all duration-500"></div>
                 </a>
             );
         }
@@ -112,42 +112,76 @@ const Header = () => {
         <div className="relative">
             {/* Animated Background */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-400/20 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute -top-20 -left-40 w-60 h-60 bg-pink-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-                <div className="absolute top-40 right-20 w-40 h-40 bg-blue-400/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+                <div className="absolute -top-40 -right-40 w-80 h-80 bg-emerald-400/15 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute -top-20 -left-40 w-60 h-60 bg-teal-400/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute top-40 right-20 w-40 h-40 bg-cyan-400/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+                
+                {/* Floating particles */}
+                {[...Array(6)].map((_, i) => (
+                    <div
+                        key={i}
+                        className="absolute opacity-20 animate-float"
+                        style={{
+                            top: `${Math.random() * 100}%`,
+                            left: `${Math.random() * 100}%`,
+                            animationDelay: `${Math.random() * 3}s`,
+                            animationDuration: `${4 + Math.random() * 2}s`
+                        }}
+                    >
+                        {i % 3 === 0 ? (
+                            <Sparkles className="h-4 w-4 text-emerald-500" />
+                        ) : i % 3 === 1 ? (
+                            <Zap className="h-3 w-3 text-teal-500" />
+                        ) : (
+                            <div className="w-2 h-2 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full"></div>
+                        )}
+                    </div>
+                ))}
             </div>
 
             <header className={`fixed top-0 w-full z-50 transition-all duration-700 ${scrolled
-                ? 'bg-white/95 backdrop-blur-2xl border-b border-purple-200/30 shadow-2xl shadow-purple-900/10'
-                : 'bg-white/70 backdrop-blur-xl border-b border-white/20'
+                ? 'bg-white/95 backdrop-blur-2xl border-b border-emerald-200/40 shadow-2xl shadow-emerald-900/10'
+                : 'bg-white/80 backdrop-blur-xl border-b border-white/30'
                 }`}>
-                {/* Gradient line at top */}
-                {/* <div className="h-1 bg-gradient-to-r from-purple-600 via-pink-600 via-blue-600 to-purple-600 bg-[length:200%_100%] animate-gradient"></div> */}
-                <div className="h-1 w-full rounded-full bg-gradient-to-r from-cyan-400 via-lime-400 to-fuchsia-500 bg-[length:200%_100%] animate-shimmer shadow-lg shadow-cyan-400/50"></div>
-                {/* <div className="h-1 w-full rounded-full bg-gradient-to-r from-amber-500 via-pink-500 to-red-600 bg-[length:200%_100%] animate-shimmer shadow-lg shadow-amber-500/40"></div> */}
-                {/* <div className="h-1 w-full rounded-full bg-gradient-to-r from-indigo-700 via-purple-600 via-fuchsia-600 to-sky-500 bg-[length:200%_100%] animate-shimmer shadow-lg shadow-fuchsia-500/40"></div> */}
-
+                
+                {/* Dynamic Rainbow Gradient Border */}
+                <div className="h-1 w-full bg-gradient-to-r from-emerald-500 via-teal-500 via-cyan-500 via-blue-500 to-indigo-500 bg-[length:400%_100%] animate-shimmer shadow-lg shadow-emerald-400/30"></div>
 
                 <div className="container mx-auto px-8">
-                    <div className="flex items-center justify-between h-24">
-                        {/* Logo */}
+                    <div className="flex items-center justify-between h-20">
+                        {/* Enhanced Logo */}
                         <div className="flex items-center gap-4 group cursor-pointer">
                             <div className="relative">
-                                {/* Logo placeholder - you can replace with your actual logo */}
-                                <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-purple-600 via-purple-500 via-pink-500 to-blue-500 flex items-center justify-center shadow-2xl group-hover:shadow-3xl group-hover:shadow-purple-500/30 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 relative overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                                    <span className="text-2xl font-black text-white relative z-10">CC</span>
+                                {/* Main logo container */}
+                                <div className="h-14 w-14 rounded-3xl bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600 flex items-center justify-center shadow-2xl group-hover:shadow-3xl group-hover:shadow-emerald-500/40 transition-all duration-700 group-hover:scale-110 group-hover:rotate-6 relative overflow-hidden">
+                                    {/* Glass effect overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-transparent rounded-3xl"></div>
+                                    {/* Logo text */}
+                                    <span className="text-2xl font-black text-white relative z-10 drop-shadow-lg">CC</span>
+                                    {/* Animated shimmer effect */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 skew-x-12"></div>
                                 </div>
-                                <div className="absolute -inset-2 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500"></div>
-                                <div className="absolute -top-1 -right-1 w-4 h-4">
-                                    <Star className="w-full h-full text-yellow-400 opacity-0 group-hover:opacity-100 transition-all duration-300 animate-spin" style={{ animationDuration: '3s' }} />
+                                
+                                {/* Glow effect */}
+                                <div className="absolute -inset-3 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 rounded-3xl opacity-0 group-hover:opacity-40 blur-xl transition-all duration-700"></div>
+                                
+                                {/* Floating star */}
+                                <div className="absolute -top-2 -right-2 w-5 h-5">
+                                    <Star className="w-full h-full text-amber-400 opacity-0 group-hover:opacity-100 transition-all duration-500 animate-spin group-hover:scale-125" style={{ animationDuration: '3s' }} />
+                                </div>
+                                
+                                {/* Status indicator */}
+                                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full border-2 border-white shadow-lg">
+                                    <div className="w-full h-full bg-green-400 rounded-full animate-ping opacity-50"></div>
                                 </div>
                             </div>
+                            
                             <div className="flex flex-col">
-                                <span className="text-2xl font-black bg-gradient-to-r from-gray-900 via-purple-800 via-pink-800 to-blue-800 bg-clip-text text-transparent group-hover:from-purple-600 group-hover:via-pink-600 group-hover:to-blue-600 transition-all duration-500">
+                                <span className="text-2xl font-black bg-gradient-to-r from-slate-800 via-emerald-700 to-teal-700 bg-clip-text text-transparent group-hover:from-emerald-600 group-hover:via-teal-600 group-hover:to-cyan-600 transition-all duration-700">
                                     Cash Control
                                 </span>
-                                <span className="text-sm text-gray-500 font-medium -mt-1 group-hover:text-purple-600 transition-colors duration-300">
+                                <span className="text-sm text-slate-500 font-semibold -mt-1 group-hover:text-emerald-600 transition-colors duration-500 flex items-center gap-1">
+                                    <Shield className="w-3 h-3" />
                                     Control Your Money
                                 </span>
                             </div>
@@ -158,73 +192,89 @@ const Header = () => {
                             {navLinks.map((link) => renderNavLink(link, false))}
                         </nav>
 
-                        {/* Action Buttons & Hamburger Menu */}
+                        {/* Enhanced Action Buttons & Hamburger Menu */}
                         <div className="flex items-center space-x-4">
                             <div className="hidden sm:flex items-center space-x-4">
+                                {/* Login Button */}
                                 <a
                                     href="/login"
-                                    className="group relative text-gray-700 hover:text-gray-900 font-medium transition-all duration-300 px-6 py-3 rounded-2xl hover:bg-white/50 hover:shadow-lg hover:shadow-purple-500/10"
+                                    className="group relative text-slate-700 hover:text-slate-900 font-semibold transition-all duration-500 px-6 py-3 rounded-2xl hover:bg-white/70 hover:shadow-lg hover:shadow-emerald-500/10 hover:border hover:border-emerald-200/30"
                                 >
                                     <span className="relative z-10">Login</span>
-                                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full group-hover:w-6 transition-all duration-300"></div>
+                                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-full group-hover:w-6 transition-all duration-500"></div>
                                 </a>
+                                
+                                {/* Enhanced Get Started Button */}
                                 <a
                                     href="/signup"
-                                    className="relative inline-block px-8 py-3 rounded-xl bg-blue-600 text-white font-semibold shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300"
+                                    className="group relative inline-block px-8 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white font-bold shadow-xl hover:shadow-2xl hover:shadow-emerald-500/30 transition-all duration-500 hover:scale-105 overflow-hidden"
                                 >
                                     <span className="relative z-10 flex items-center gap-2">
                                         Get Started
                                         <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
                                     </span>
-                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                    <div className="absolute -top-2 -left-2 w-6 h-6 bg-white/20 rounded-full opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-500"></div>
+                                    
+                                    {/* Gradient overlay on hover */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 via-emerald-600 to-teal-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    
+                                    {/* Shine effect */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></div>
+                                    
+                                    {/* Corner decoration */}
+                                    <div className="absolute -top-2 -right-2 w-4 h-4 bg-white/30 rounded-full opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-500"></div>
                                 </a>
                             </div>
 
+                            {/* Enhanced Mobile Menu Button */}
                             <button
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                                className="lg:hidden group p-3 rounded-2xl text-gray-700 hover:bg-white/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 hover:scale-110 relative overflow-hidden"
+                                className="lg:hidden group p-3 rounded-2xl text-slate-700 hover:bg-white/70 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-500 hover:scale-110 relative overflow-hidden border border-transparent hover:border-emerald-200/30"
                                 aria-label="Toggle menu"
                             >
-                                <div className="absolute inset-0 bg-gradient-to-r from-purple-600/0 to-pink-600/0 group-hover:from-purple-600/5 group-hover:to-pink-600/5 transition-all duration-300 rounded-2xl"></div>
-                                {isMenuOpen ? <X className="h-6 w-6 relative z-10" /> : <Menu className="h-6 w-6 relative z-10" />}
+                                <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/0 to-teal-600/0 group-hover:from-emerald-600/5 group-hover:to-teal-600/5 transition-all duration-500 rounded-2xl"></div>
+                                {isMenuOpen ? 
+                                    <X className="h-6 w-6 relative z-10 group-hover:rotate-90 transition-transform duration-300" /> : 
+                                    <Menu className="h-6 w-6 relative z-10 group-hover:scale-110 transition-transform duration-300" />
+                                }
                             </button>
                         </div>
                     </div>
                 </div>
 
-                {/* Mobile Navigation */}
+                {/* Enhanced Mobile Navigation */}
                 <div className={`lg:hidden transition-all duration-700 overflow-hidden ${isMenuOpen
                     ? 'max-h-screen opacity-100 translate-y-0'
                     : 'max-h-0 opacity-0 -translate-y-4'
                     }`}>
-                    <div className="bg-white/95 backdrop-blur-2xl border-t border-purple-200/30 mx-6 mb-6 rounded-3xl shadow-2xl shadow-purple-900/10 overflow-hidden">
+                    <div className="bg-white/95 backdrop-blur-2xl border-t border-emerald-200/40 mx-6 mb-6 rounded-3xl shadow-2xl shadow-emerald-900/10 overflow-hidden border border-emerald-200/30">
                         <div className="p-8">
                             <nav className="flex flex-col space-y-3">
                                 {navLinks.map((link) => renderNavLink(link, true))}
 
-                                <div className="flex flex-col space-y-4 pt-6 mt-6 border-t border-gradient-to-r from-purple-200/50 to-pink-200/50">
+                                <div className="flex flex-col space-y-4 pt-6 mt-6 border-t border-gradient-to-r from-emerald-200/50 to-teal-200/50">
                                     <a
                                         href="/login"
                                         onClick={handleInternalLink}
-                                        className="group text-gray-700 hover:text-gray-900 font-medium py-4 px-6 rounded-2xl hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-pink-500/10 transition-all duration-300 flex items-center justify-between"
+                                        className="group text-slate-700 hover:text-slate-900 font-semibold py-4 px-6 rounded-2xl hover:bg-gradient-to-r hover:from-emerald-500/10 hover:to-teal-500/10 transition-all duration-500 flex items-center justify-between"
                                     >
                                         <span className="flex items-center gap-3">
-                                            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
                                             Login
                                         </span>
                                         <ArrowRight className="h-4 w-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
                                     </a>
+                                    
                                     <a
                                         href="/signup"
                                         onClick={handleInternalLink}
-                                        className="group bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white px-8 py-4 rounded-2xl font-bold hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-500 text-center relative overflow-hidden"
+                                        className="group bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white px-8 py-4 rounded-2xl font-bold hover:shadow-xl hover:shadow-emerald-500/30 transition-all duration-500 text-center relative overflow-hidden"
                                     >
                                         <span className="relative z-10 flex items-center justify-center gap-2">
                                             Get Started
                                             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
                                         </span>
-                                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 via-emerald-600 to-teal-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></div>
                                     </a>
                                 </div>
                             </nav>
@@ -234,17 +284,37 @@ const Header = () => {
             </header>
 
             {/* Spacer */}
-            <div className="h-24"></div>
+            <div className="h-20"></div>
 
-            {/* Add keyframe animation */}
+            {/* Enhanced Keyframe Animations */}
             <style jsx>{`
-                @keyframes gradient {
-                    0% { background-position: 0% 50%; }
-                    50% { background-position: 100% 50%; }
-                    100% { background-position: 0% 50%; }
+                @keyframes shimmer {
+                    0% { background-position: -200% center; }
+                    100% { background-position: 200% center; }
                 }
-                .animate-gradient {
-                    animation: gradient 3s ease infinite;
+                
+                @keyframes float {
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-15px) rotate(180deg); }
+                }
+                
+                @keyframes gradient-shift {
+                    0%, 100% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                }
+                
+                .animate-shimmer {
+                    background-size: 400% 100%;
+                    animation: shimmer 3s ease-in-out infinite;
+                }
+                
+                .animate-float {
+                    animation: float 5s ease-in-out infinite;
+                }
+                
+                .animate-gradient-shift {
+                    background-size: 200% 200%;
+                    animation: gradient-shift 4s ease infinite;
                 }
             `}</style>
         </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import EmojiPickerPopup from "./EmojiPickerPopup.jsx";
 import Input from "./Input.jsx";
 import { LoaderCircle } from "lucide-react";
+import DatePicker from "react-datepicker";
 
 const AddIncomeForm = ({ onAddIncome, categories }) => {
     const [income, setIncome] = useState({
@@ -71,10 +72,12 @@ const AddIncomeForm = ({ onAddIncome, categories }) => {
             <Input
                 value={income.date}
                 onChange={({ target }) => handleChange('date', target.value)}
-                label="Date"
+                label=""
                 placeholder=""
                 type="date"
             />
+
+
 
             <div className="flex justify-end mt-6">
                 <button

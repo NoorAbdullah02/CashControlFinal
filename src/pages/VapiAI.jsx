@@ -1,65 +1,98 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Send, Bot, User, Sparkles, Plus, LoaderCircle } from "lucide-react";
+import { Send, Bot, User, Sparkles, Plus, LoaderCircle, MessageCircle, Zap, Brain } from "lucide-react";
 import Dashboard from "../components/Dashboard.jsx";
 import { useUser } from "../hooks/useUser.jsx";
 import toast from "react-hot-toast";
 
-// AI Chat Overview Component (similar to ExpenseOverview)
+// AI Chat Overview Component
 const AIOverview = ({ onStartNewChat, totalMessages }) => {
     return (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-6">
-                <div>
-                    <h5 className="text-lg font-semibold text-gray-800">AI Assistant Overview</h5>
-                    <p className="text-sm text-gray-500 mt-1">
-                        Get intelligent insights about your finances and manage your money smarter.
-                    </p>
-                </div>
-                <div className="flex items-center gap-2">
-                    <button
-                        className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors text-sm font-medium"
-                        onClick={onStartNewChat}
-                    >
-                        <Plus size={15} />
-                        New Chat
-                    </button>
-                </div>
+        <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl border border-white/50 shadow-2xl overflow-hidden">
+            {/* Header Decoration */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-teal-500 to-cyan-500"></div>
+            
+            {/* Corner Decorations */}
+            <div className="absolute top-4 right-4 w-12 h-12 bg-gradient-to-br from-blue-100 to-teal-100 rounded-full opacity-50"></div>
+            <div className="absolute bottom-4 left-4 w-8 h-8 bg-gradient-to-tr from-cyan-100 to-blue-100 rounded-full opacity-40"></div>
+            
+            {/* Floating AI icon */}
+            <div className="absolute top-6 left-6 animate-bounce-slow">
+                <Brain className="h-4 w-4 text-blue-300 opacity-60" />
             </div>
-
-            {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-                    <div className="flex items-center">
-                        <div className="p-2 bg-purple-100 rounded-lg">
-                            <Bot className="w-5 h-5 text-purple-600" />
+            
+            <div className="relative p-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 space-y-4 sm:space-y-0">
+                    <div className="flex items-center space-x-4">
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-teal-500 rounded-2xl blur-sm opacity-50 animate-pulse"></div>
+                            <div className="relative bg-gradient-to-r from-blue-500 to-teal-600 p-3 rounded-2xl shadow-xl">
+                                <Bot className="h-6 w-6 text-white" />
+                            </div>
                         </div>
-                        <div className="ml-3">
-                            <p className="text-sm font-medium text-purple-900">Total Messages</p>
-                            <p className="text-lg font-semibold text-purple-600">{totalMessages}</p>
+                        <div>
+                            <h5 className="text-xl font-bold text-gray-800">AI Financial Assistant</h5>
+                            <p className="text-gray-600 mt-1">
+                                Get intelligent insights about your finances and manage your money smarter.
+                            </p>
                         </div>
+                    </div>
+                    
+                    <div className="relative group">
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-teal-600 rounded-2xl blur-lg opacity-50 group-hover:opacity-70 transition-opacity"></div>
+                        <button
+                            className="relative bg-gradient-to-r from-blue-500 to-teal-600 text-white px-6 py-3 rounded-2xl font-semibold shadow-xl transform transition-all group-hover:scale-105 flex items-center space-x-2"
+                            onClick={onStartNewChat}
+                        >
+                            <Plus className="h-4 w-4" />
+                            <span>New Chat</span>
+                        </button>
                     </div>
                 </div>
 
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                    <div className="flex items-center">
-                        <div className="p-2 bg-green-100 rounded-lg">
-                            <Sparkles className="w-5 h-5 text-green-600" />
-                        </div>
-                        <div className="ml-3">
-                            <p className="text-sm font-medium text-green-900">AI Status</p>
-                            <p className="text-lg font-semibold text-green-600">Online</p>
+                {/* Stats Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="relative group">
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-teal-500/10 rounded-2xl blur-sm"></div>
+                        <div className="relative bg-white/70 backdrop-blur-sm border border-blue-200 rounded-2xl p-4 transform transition-all group-hover:scale-105">
+                            <div className="flex items-center">
+                                <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-2 rounded-xl shadow-lg">
+                                    <MessageCircle className="w-5 h-5 text-white" />
+                                </div>
+                                <div className="ml-3">
+                                    <p className="text-sm font-medium text-blue-900">Total Messages</p>
+                                    <p className="text-2xl font-bold text-blue-600">{totalMessages}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <div className="flex items-center">
-                        <div className="p-2 bg-blue-100 rounded-lg">
-                            <User className="w-5 h-5 text-blue-600" />
+                    <div className="relative group">
+                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-2xl blur-sm"></div>
+                        <div className="relative bg-white/70 backdrop-blur-sm border border-emerald-200 rounded-2xl p-4 transform transition-all group-hover:scale-105">
+                            <div className="flex items-center">
+                                <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-2 rounded-xl shadow-lg">
+                                    <Sparkles className="w-5 h-5 text-white" />
+                                </div>
+                                <div className="ml-3">
+                                    <p className="text-sm font-medium text-emerald-900">AI Status</p>
+                                    <p className="text-2xl font-bold text-emerald-600">Online</p>
+                                </div>
+                            </div>
                         </div>
-                        <div className="ml-3">
-                            <p className="text-sm font-medium text-blue-900">Session</p>
-                            <p className="text-lg font-semibold text-blue-600">Active</p>
+                    </div>
+
+                    <div className="relative group">
+                        <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-cyan-500/10 rounded-2xl blur-sm"></div>
+                        <div className="relative bg-white/70 backdrop-blur-sm border border-teal-200 rounded-2xl p-4 transform transition-all group-hover:scale-105">
+                            <div className="flex items-center">
+                                <div className="bg-gradient-to-r from-teal-500 to-cyan-600 p-2 rounded-xl shadow-lg">
+                                    <Zap className="w-5 h-5 text-white" />
+                                </div>
+                                <div className="ml-3">
+                                    <p className="text-sm font-medium text-teal-900">Session</p>
+                                    <p className="text-2xl font-bold text-teal-600">Active</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -68,68 +101,92 @@ const AIOverview = ({ onStartNewChat, totalMessages }) => {
     );
 };
 
-// Chat List Component (similar to ExpenseList but without download/email)
+// Chat List Component
 const ChatList = ({ messages, onClearChat }) => {
     const formatTime = (date) => {
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-6">
-                <h5 className="text-lg font-semibold text-gray-800">Chat History</h5>
-                <div className="flex items-center gap-2">
-                    <button
-                        onClick={onClearChat}
-                        disabled={messages.length === 0}
-                        className="flex items-center gap-2 px-4 py-2 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-colors text-sm font-medium disabled:opacity-50"
-                    >
-                        Clear Chat
-                    </button>
-                </div>
-            </div>
-
-            <div className="space-y-4 max-h-96 overflow-y-auto">
-                {messages.length === 0 ? (
-                    <div className="text-center py-8 text-gray-500">
-                        <Bot className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-                        <p>No messages yet. Start a conversation with the AI!</p>
-                    </div>
-                ) : (
-                    messages.map((msg, index) => (
-                        <div
-                            key={index}
-                            className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"} mb-4`}
-                        >
-                            <div className={`flex items-start gap-3 max-w-lg`}>
-                                {msg.type === "bot" && (
-                                    <div className="flex-shrink-0 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                                        <Bot className="w-4 h-4 text-purple-600" />
-                                    </div>
-                                )}
-
-                                <div
-                                    className={`p-4 rounded-lg shadow-sm ${msg.type === "user"
-                                        ? "bg-purple-600 text-white rounded-br-sm"
-                                        : "bg-gray-50 border rounded-bl-sm"
-                                        }`}
-                                >
-                                    <p className="text-sm leading-relaxed">{msg.text}</p>
-                                    <span className={`text-xs mt-2 block ${msg.type === "user" ? "text-purple-200" : "text-gray-400"
-                                        }`}>
-                                        {formatTime(msg.timestamp)}
-                                    </span>
-                                </div>
-
-                                {msg.type === "user" && (
-                                    <div className="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                                        <User className="w-4 h-4 text-gray-600" />
-                                    </div>
-                                )}
-                            </div>
+        <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl border border-white/50 shadow-2xl overflow-hidden">
+            {/* Header Decoration */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500"></div>
+            
+            {/* Corner Decorations */}
+            <div className="absolute top-4 left-4 w-10 h-10 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-full opacity-60"></div>
+            <div className="absolute bottom-4 right-4 w-14 h-14 bg-gradient-to-tl from-cyan-100 to-blue-100 rounded-full opacity-40"></div>
+            
+            <div className="relative p-6">
+                <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center space-x-3">
+                        <div className="bg-gradient-to-r from-teal-500 to-cyan-500 p-2 rounded-xl shadow-lg">
+                            <MessageCircle className="text-white h-5 w-5" />
                         </div>
-                    ))
-                )}
+                        <div>
+                            <h5 className="text-xl font-bold text-gray-800">Chat History</h5>
+                            <p className="text-gray-600 text-sm">Your conversation with the AI assistant</p>
+                        </div>
+                    </div>
+                    
+                    <div className="relative group">
+                        <button
+                            onClick={onClearChat}
+                            disabled={messages.length === 0}
+                            className="bg-gradient-to-r from-red-100 to-pink-100 hover:from-red-200 hover:to-pink-200 text-red-700 px-4 py-2 rounded-2xl transition-all font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed transform group-hover:scale-105"
+                        >
+                            Clear Chat
+                        </button>
+                    </div>
+                </div>
+
+                <div className="space-y-4 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                    {messages.length === 0 ? (
+                        <div className="text-center py-12">
+                            <div className="bg-gradient-to-r from-blue-100 to-teal-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Bot className="w-8 h-8 text-blue-600" />
+                            </div>
+                            <p className="text-gray-500 font-medium">No messages yet</p>
+                            <p className="text-gray-400 text-sm mt-1">Start a conversation with the AI!</p>
+                        </div>
+                    ) : (
+                        messages.map((msg, index) => (
+                            <div
+                                key={index}
+                                className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"} mb-4 animate-fade-in-up`}
+                                style={{animationDelay: `${index * 0.1}s`}}
+                            >
+                                <div className={`flex items-start gap-3 max-w-lg`}>
+                                    {msg.type === "bot" && (
+                                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-blue-500 to-teal-600 rounded-full flex items-center justify-center shadow-lg">
+                                            <Bot className="w-4 h-4 text-white" />
+                                        </div>
+                                    )}
+
+                                    <div
+                                        className={`p-4 rounded-2xl shadow-xl backdrop-blur-sm transform transition-all hover:scale-105 ${
+                                            msg.type === "user"
+                                                ? "bg-gradient-to-r from-blue-600 to-teal-600 text-white rounded-br-sm"
+                                                : "bg-white/90 border border-gray-200 rounded-bl-sm"
+                                        }`}
+                                    >
+                                        <p className="text-sm leading-relaxed">{msg.text}</p>
+                                        <span className={`text-xs mt-2 block ${
+                                            msg.type === "user" ? "text-blue-200" : "text-gray-400"
+                                        }`}>
+                                            {formatTime(msg.timestamp)}
+                                        </span>
+                                    </div>
+
+                                    {msg.type === "user" && (
+                                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-gray-400 to-gray-500 rounded-full flex items-center justify-center shadow-lg">
+                                            <User className="w-4 h-4 text-white" />
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        ))
+                    )}
+                </div>
             </div>
         </div>
     );
@@ -145,30 +202,41 @@ const ChatInput = ({ input, setInput, onSendMessage, isLoading }) => {
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-            <div className="flex items-end gap-3">
-                <div className="flex-1">
-                    <textarea
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        onKeyPress={handleKeyPress}
-                        placeholder="Ask me anything about your finances..."
-                        className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                        rows="3"
-                        disabled={isLoading}
-                    />
+        <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl border border-white/50 shadow-2xl overflow-hidden">
+            {/* Header Decoration */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500"></div>
+            
+            <div className="relative p-6">
+                <div className="flex items-end gap-4">
+                    <div className="flex-1 relative">
+                        <textarea
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            onKeyPress={handleKeyPress}
+                            placeholder="Ask me anything about your finances..."
+                            className="w-full p-4 bg-white/90 backdrop-blur-sm border-2 border-gray-200 rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-300 text-gray-700"
+                            rows="3"
+                            disabled={isLoading}
+                        />
+                        {/* Input glow effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-teal-500/5 rounded-2xl opacity-0 focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                    </div>
+                    
+                    <div className="relative group">
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-teal-600 rounded-2xl blur-lg opacity-50 group-hover:opacity-70 transition-opacity"></div>
+                        <button
+                            onClick={onSendMessage}
+                            disabled={!input.trim() || isLoading}
+                            className="relative flex items-center justify-center w-14 h-14 bg-gradient-to-r from-blue-500 to-teal-600 hover:from-blue-600 hover:to-teal-700 disabled:from-gray-300 disabled:to-gray-400 text-white rounded-2xl transition-all transform group-hover:scale-110 shadow-xl disabled:cursor-not-allowed"
+                        >
+                            {isLoading ? (
+                                <LoaderCircle className="w-5 h-5 animate-spin" />
+                            ) : (
+                                <Send className="w-5 h-5" />
+                            )}
+                        </button>
+                    </div>
                 </div>
-                <button
-                    onClick={onSendMessage}
-                    disabled={!input.trim() || isLoading}
-                    className="flex items-center justify-center w-12 h-12 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-300 text-white rounded-lg transition-colors"
-                >
-                    {isLoading ? (
-                        <LoaderCircle className="w-5 h-5 animate-spin" />
-                    ) : (
-                        <Send className="w-5 h-5" />
-                    )}
-                </button>
             </div>
         </div>
     );
@@ -189,9 +257,6 @@ const VapiAI = () => {
     const messagesEndRef = useRef(null);
 
     const API_KEY = "AIzaSyDoMVhmBOUfFfZ60qGj6TO1F8yyE0hdbBQ";     //Gemini API KEY
-
-    // const API_KEY = "sk-GSHWIHUganGbkJ72zj94ymNZ1wUkhTeQGkdcZFGEBYjmsPcs"; // DeepSick API Key
-
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -217,8 +282,6 @@ const VapiAI = () => {
         setIsLoading(true);
 
         try {
-            // For Gemini API
-            // Replace with your actual Vapi API endpoint
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
                 method: "POST",
                 headers: {
@@ -237,44 +300,11 @@ const VapiAI = () => {
                 })
             });
 
-            // For Deeksiclk API
-
-            // const response = await fetch("https://api.deepseek.com/chat/completions", {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //         "Authorization": `Bearer ${API_KEY}`
-            //     },
-            //     body: JSON.stringify({
-            //         model: "deepseek-chat",
-            //         messages: [
-            //             {
-            //                 role: "system",
-            //                 content: "You are a helpful AI financial assistant. Provide clear, accurate, and actionable financial advice."
-            //             },
-            //             {
-            //                 role: "user",
-            //                 content: currentInput
-            //             }
-            //         ],
-            //         stream: false
-            //     })
-            // });
-
             let botResponse;
-            // For Gemini API
             if (response.ok) {
                 const data = await response.json();
                 botResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "I received your message, but I'm having trouble processing it right now.";
-            }
-
-            // For DeepSick API
-            // if (response.ok) {
-            //     const data = await response.json();
-            //     botResponse = data.choices?.[0]?.message?.content || "I received your message, but I'm having trouble processing it right now.";
-            // }
-            else {
-                // Fallback response for demo purposes
+            } else {
                 botResponse = generateFinancialResponse(currentInput);
             }
 
@@ -327,7 +357,6 @@ const VapiAI = () => {
             return "Managing debt is important for financial freedom. Consider the debt avalanche method (pay minimums on all debts, extra on highest interest) or debt snowball method (pay minimums on all debts, extra on smallest balance). Which approach interests you more?";
         }
 
-        // Default response
         return "I'm here to help with all your financial questions! I can assist with budgeting, expense tracking, saving strategies, investment basics, debt management, and financial planning. What specific area would you like to explore?";
     };
 
@@ -349,32 +378,157 @@ const VapiAI = () => {
 
     return (
         <Dashboard activeMenu="AI Assistant">
-            <div className="my-5 mx-auto">
-                <div className="grid grid-cols-1 gap-6">
+            {/* Animated Background */}
+            <div className="fixed inset-0 pointer-events-none overflow-hidden">
+                {/* Gradient Orbs */}
+                <div className="absolute top-16 right-12 w-80 h-80 bg-gradient-to-r from-blue-200 to-teal-300 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-pulse"></div>
+                <div className="absolute bottom-32 left-16 w-96 h-96 bg-gradient-to-r from-cyan-200 to-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
+                <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-gradient-to-r from-teal-200 to-cyan-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse delay-500"></div>
+                
+                {/* Floating AI Elements */}
+                {[...Array(10)].map((_, i) => (
+                    <div
+                        key={i}
+                        className="absolute animate-float opacity-20"
+                        style={{
+                            top: `${Math.random() * 100}%`,
+                            left: `${Math.random() * 100}%`,
+                            animationDelay: `${Math.random() * 5}s`,
+                            animationDuration: `${6 + Math.random() * 4}s`
+                        }}
+                    >
+                        {i % 4 === 0 ? (
+                            <Bot className="h-6 w-6 text-blue-400" />
+                        ) : i % 4 === 1 ? (
+                            <Brain className="h-5 w-5 text-teal-400" />
+                        ) : i % 4 === 2 ? (
+                            <Sparkles className="h-4 w-4 text-cyan-400" />
+                        ) : (
+                            <MessageCircle className="h-5 w-5 text-blue-400" />
+                        )}
+                    </div>
+                ))}
+
+                {/* Geometric shapes */}
+                <div className="absolute top-1/4 left-1/5 w-8 h-8 border-2 border-teal-300 rotate-45 animate-spin opacity-30" style={{animationDuration: '12s'}}></div>
+                <div className="absolute bottom-1/3 right-1/4 w-6 h-6 bg-cyan-300 rounded-full animate-bounce opacity-40" style={{animationDelay: '2s'}}></div>
+                <div className="absolute top-2/3 left-1/3 w-4 h-4 bg-blue-400 transform rotate-45 animate-pulse opacity-50" style={{animationDelay: '1.5s'}}></div>
+            </div>
+
+            {/* Main Content */}
+            <div className="relative z-10">
+                {/* Page Header with Animation */}
+                <div className="mb-8 mt-6 animate-fade-in-up px-4 sm:px-0">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+                        <div className="flex items-center space-x-4">
+                            <div className="relative">
+                                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-teal-500 rounded-2xl blur-lg opacity-50 animate-pulse"></div>
+                                <div className="relative bg-gradient-to-r from-blue-500 to-teal-600 p-4 rounded-2xl shadow-xl">
+                                    <Bot className="h-8 w-8 text-white" />
+                                </div>
+                            </div>
+                            <div>
+                                <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+                                    AI Assistant
+                                </h1>
+                                <p className="text-gray-500 mt-1 text-lg">Your intelligent financial advisor</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {/* Decorative Line */}
+                    <div className="mt-6 w-full h-1 bg-gradient-to-r from-blue-500 via-teal-500 to-cyan-500 rounded-full opacity-60"></div>
+                </div>
+
+                {/* Content Grid with Staggered Animation */}
+                <div className="grid grid-cols-1 gap-8 px-4 sm:px-0">
                     {/* AI Overview */}
-                    <AIOverview
-                        onStartNewChat={handleStartNewChat}
-                        totalMessages={messages.length}
-                    />
+                    <div className="animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+                        <AIOverview
+                            onStartNewChat={handleStartNewChat}
+                            totalMessages={messages.length}
+                        />
+                    </div>
 
                     {/* Chat History */}
-                    <ChatList
-                        messages={messages}
-                        onClearChat={handleClearChat}
-                    />
+                    <div className="animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+                        <ChatList
+                            messages={messages}
+                            onClearChat={handleClearChat}
+                        />
+                    </div>
 
                     {/* Chat Input */}
-                    <ChatInput
-                        input={input}
-                        setInput={setInput}
-                        onSendMessage={sendMessage}
-                        isLoading={isLoading}
-                    />
+                    <div className="animate-fade-in-up" style={{animationDelay: '0.6s'}}>
+                        <ChatInput
+                            input={input}
+                            setInput={setInput}
+                            onSendMessage={sendMessage}
+                            isLoading={isLoading}
+                        />
+                    </div>
 
                     {/* Scroll to bottom reference */}
                     <div ref={messagesEndRef} />
                 </div>
             </div>
+
+            {/* Custom Animations */}
+            <style jsx>{`
+                @keyframes float {
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-20px) rotate(180deg); }
+                }
+                
+                @keyframes fade-in-up {
+                    from {
+                        opacity: 0;
+                        transform: translateY(30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                @keyframes bounce-slow {
+                    0%, 20%, 53%, 80%, 100% { transform: translate3d(0,0,0); }
+                    40%, 43% { transform: translate3d(0,-15px,0); }
+                    70% { transform: translate3d(0,-8px,0); }
+                    90% { transform: translate3d(0,-3px,0); }
+                }
+                
+                .animate-float {
+                    animation: float 6s ease-in-out infinite;
+                }
+                
+                .animate-fade-in-up {
+                    animation: fade-in-up 0.8s ease-out forwards;
+                    opacity: 0;
+                }
+                
+                .animate-bounce-slow {
+                    animation: bounce-slow 3s infinite;
+                }
+                
+                .scrollbar-thin {
+                    scrollbar-width: thin;
+                }
+                
+                .scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
+                    background-color: #d1d5db;
+                    border-radius: 0.5rem;
+                }
+                
+                .scrollbar-track-gray-100::-webkit-scrollbar-track {
+                    background-color: #f3f4f6;
+                    border-radius: 0.5rem;
+                }
+                
+                .scrollbar-thin::-webkit-scrollbar {
+                    width: 8px;
+                }
+            `}</style>
         </Dashboard>
     );
 };

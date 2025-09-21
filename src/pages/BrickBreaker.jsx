@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { Play, Pause, RotateCcw, Trophy, Maximize2, Minimize2, Volume2, VolumeX, Monitor } from 'lucide-react';
+import { Sparkles, ArrowRight, Zap, Star } from 'lucide-react';
 import Dashboard from "../components/Dashboard.jsx";
 import { useUser } from "../hooks/useUser.jsx";
 
@@ -28,6 +29,7 @@ const BrickBreaker = () => {
     useUser();
 
     const MobileRestriction = () => (
+        <Dashboard>
         <div className="lg:hidden min-h-screen bg-slate-900 flex items-center justify-center p-6">
             <div className="text-center max-w-md">
                 <Monitor className="h-16 w-16 text-cyan-400 mx-auto mb-6" />
@@ -42,7 +44,9 @@ const BrickBreaker = () => {
                 </p>
             </div>
         </div>
+        </Dashboard>
     );
+
 
     const gameAreaRef = useRef(null);
     const animationFrameRef = useRef(null);
@@ -681,9 +685,25 @@ const BrickBreaker = () => {
     const totalBricks = BRICK_ROWS * BRICK_COLS;
     const bricksDestroyed = totalBricks - activeBricksCount;
 
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 1024); // lg breakpoint
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // If mobile, render only the MobileRestriction component
+    if (isMobile) {
+        return <MobileRestriction />;
+    }
+
+
+
     return (
         <>
-            <MobileRestriction />
+
             <Dashboard activeMenu="Brick Breaker">
                 <div
                     ref={containerRef}
