@@ -13,6 +13,8 @@ import BrickBreaker from "./pages/BrickBreaker.jsx";
 import CarRacingGame from "./pages/CarRacing.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
+import UpdateName from "./pages/UpdateName.jsx";
+import UpdateProfileImage from "./pages/UpdateProfileImage.jsx";
 
 
 const App = () => {
@@ -35,6 +37,8 @@ const App = () => {
                     <Route path="/car-racing" element={<CarRacingGame />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
+                    <Route path="/update-name" element={<UpdateName/>}/>
+                    <Route path="/update-profile-image" element={<UpdateProfileImage/>}/>
 
                 </Routes>
             </BrowserRouter>

@@ -6,7 +6,9 @@ import {
     Menu, 
     Settings, 
     Camera, 
-    Key
+    Key,
+    Edit3,
+    UserCheck
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets.js";
@@ -57,6 +59,18 @@ const Menubar = ({ activeMenu }) => {
     const handleChangePassword = () => {
         setShowDropdown(false);
         navigate("/forgot-password");
+    };
+
+    // New function for Update Name navigation
+    const handleUpdateName = () => {
+        setShowDropdown(false);
+        navigate("/update-name");
+    };
+
+    // New function for Update Profile Image navigation
+    const handleUpdateProfileImage = () => {
+        setShowDropdown(false);
+        navigate("/update-profile-image");
     };
 
     const handleChangeProfileImage = async () => {
@@ -113,11 +127,6 @@ const Menubar = ({ activeMenu }) => {
         // Trigger file picker
         input.click();
         setShowDropdown(false);
-    };
-
-    const handleProfileSettings = () => {
-        setShowDropdown(false);
-        navigate("/profile-settings");
     };
 
     return (
@@ -205,41 +214,35 @@ const Menubar = ({ activeMenu }) => {
 
                         {/* Menu sections */}
                         <div className="py-2">
-                            {/* <button
-                                onClick={handleProfileSettings}
+                            {/* Update Name - NEW */}
+                            <button
+                                onClick={handleUpdateName}
                                 className="flex items-center gap-4 w-full px-6 py-3 text-slate-700 hover:bg-blue-50 transition-all duration-200 group"
                             >
-                                <div className="w-8 h-8 bg-blue-100 group-hover:bg-blue-200 rounded-lg flex items-center justify-center transition-colors">
-                                    <Settings className="w-4 h-4 text-blue-600" />
+                                <div className="w-8 h-8 bg-purple-100 group-hover:bg-purple-200 rounded-lg flex items-center justify-center transition-colors">
+                                    <Edit3 className="w-4 h-4 text-purple-600" />
                                 </div>
                                 <div className="flex-1 text-left">
-                                    <p className="text-sm font-medium">Profile Settings</p>
-                                    <p className="text-xs text-slate-500">Update your profile information</p>
+                                    <p className="text-sm font-medium">Update Name</p>
+                                    <p className="text-xs text-slate-500">Change your display name</p>
                                 </div>
                             </button>
 
+                            {/* Update Profile Image - NEW */}
                             <button
-                                onClick={handleChangeProfileImage}
-                                disabled={imageUploading}
-                                className="flex items-center gap-4 w-full px-6 py-3 text-slate-700 hover:bg-blue-50 transition-all duration-200 group disabled:opacity-50 disabled:cursor-not-allowed"
+                                onClick={handleUpdateProfileImage}
+                                className="flex items-center gap-4 w-full px-6 py-3 text-slate-700 hover:bg-blue-50 transition-all duration-200 group"
                             >
                                 <div className="w-8 h-8 bg-cyan-100 group-hover:bg-cyan-200 rounded-lg flex items-center justify-center transition-colors">
-                                    {imageUploading ? (
-                                        <div className="w-4 h-4 border-2 border-cyan-600 border-t-transparent rounded-full animate-spin"></div>
-                                    ) : (
-                                        <Camera className="w-4 h-4 text-cyan-600" />
-                                    )}
+                                    <Camera className="w-4 h-4 text-cyan-600" />
                                 </div>
                                 <div className="flex-1 text-left">
-                                    <p className="text-sm font-medium">
-                                        {imageUploading ? "Uploading..." : "Change Photo"}
-                                    </p>
-                                    <p className="text-xs text-slate-500">
-                                        {imageUploading ? "Please wait..." : "Upload a new profile picture"}
-                                    </p>
+                                    <p className="text-sm font-medium">Update Profile Image</p>
+                                    <p className="text-xs text-slate-500">Upload a new profile picture</p>
                                 </div>
-                            </button> */}
+                            </button>
 
+                            {/* Change Password */}
                             <button
                                 onClick={handleChangePassword}
                                 className="flex items-center gap-4 w-full px-6 py-3 text-slate-700 hover:bg-blue-50 transition-all duration-200 group"
@@ -256,6 +259,7 @@ const Menubar = ({ activeMenu }) => {
                             {/* Divider */}
                             <div className="mx-4 my-3 h-px bg-gradient-to-r from-transparent via-red-200 to-transparent"></div>
                             
+                            {/* Sign Out */}
                             <button
                                 onClick={handleLogout}
                                 className="flex items-center gap-4 w-full px-6 py-3 text-red-600 hover:bg-red-50 transition-all duration-200 group"

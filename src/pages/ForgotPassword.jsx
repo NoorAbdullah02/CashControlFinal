@@ -113,7 +113,7 @@ const ForgotPassword = () => {
                         </div>
                         <h2 className="text-3xl font-bold text-gray-900 mb-2">Forgot Password?</h2>
                         <p className="text-gray-600">
-                            No worries! Enter your email address and we'll send you a password reset link.
+                            No worries! Enter your email address and we will send you a password reset link.
                         </p>
                     </div>
 
@@ -224,7 +224,7 @@ const ForgotPassword = () => {
                 <div className="text-center mt-8">
                     <p className="text-sm text-gray-600">
                         Need help?{' '}
-                        <a href="#" className="text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                        <a href="https://noor-abdullah.vercel.app/contact.html" className="text-blue-600 hover:text-blue-800 font-medium transition-colors">
                             Contact Support
                         </a>
                     </p>

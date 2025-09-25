@@ -1,8 +1,8 @@
-//export const BASE_URL = "http://localhost:8080/api/v1.0";
+export const BASE_URL = "http://localhost:8080/api/v1.0";
 
 //export const BASE_URL = "https://cash-control-api.onrender.com/api/v1.0"; // Notification at Night First Time // My Own Githb
 
-export const BASE_URL = "https://cash-control-final-api.onrender.com/api/v1.0";  // Second Time Notification at Night noor04;  using Gamail
+//export const BASE_URL = "https://cash-control-final-api.onrender.com/api/v1.0";  // Second Time Notification at Night noor04;  using Gamail
 
 
 const CLOUDINARY_CLOUD_NAME = "dseibtclb";
@@ -31,5 +31,7 @@ export const API_ENDPOINTS = {
     // FORGET_PASSWORD: "/forgot-password",
     // RESET_PASSWORD: "/reset-password"
     FORGET_PASSWORD: `${BASE_URL}/forgot-password`,
-    RESET_PASSWORD: `${BASE_URL}/reset-password`
+    RESET_PASSWORD: `${BASE_URL}/reset-password`,
+    UPDATE_NAME:   `/profile/name`,
+    UPDATE_IMAGE: `/profile/image`,
 }
