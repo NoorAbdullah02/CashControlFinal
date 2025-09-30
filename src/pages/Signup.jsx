@@ -62,7 +62,7 @@ const Signup = () => {
             })
             if (response.status === 201) {
                 toast.success("Profile created successfully.");
-                navigate("/login");
+                navigate("/email-verification");
             }
         } catch (err) {
             console.error('Something went wrong', err);

@@ -15,6 +15,7 @@ import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import UpdateName from "./pages/UpdateName.jsx";
 import UpdateProfileImage from "./pages/UpdateProfileImage.jsx";
+import EmailVerification from "./pages/EmailVerification.jsx";
 
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
                     <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/update-name" element={<UpdateName/>}/>
                     <Route path="/update-profile-image" element={<UpdateProfileImage/>}/>
+                    <Route path="/email-verification" element={<EmailVerification />} />
 
                 </Routes>
             </BrowserRouter>
