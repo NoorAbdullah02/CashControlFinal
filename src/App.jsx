@@ -16,6 +16,8 @@ import ResetPassword from "./pages/ResetPassword.jsx";
 import UpdateName from "./pages/UpdateName.jsx";
 import UpdateProfileImage from "./pages/UpdateProfileImage.jsx";
 import EmailVerification from "./pages/EmailVerification.jsx";
+import ActivationSuccess from "./pages/ActivationSuccess.jsx";
+import ActivationFailed from "./pages/ActivationFailed.jsx";
 
 
 const App = () => {
@@ -38,9 +40,11 @@ const App = () => {
                     <Route path="/car-racing" element={<CarRacingGame />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
-                    <Route path="/update-name" element={<UpdateName/>}/>
-                    <Route path="/update-profile-image" element={<UpdateProfileImage/>}/>
+                    <Route path="/update-name" element={<UpdateName />} />
+                    <Route path="/update-profile-image" element={<UpdateProfileImage />} />
                     <Route path="/email-verification" element={<EmailVerification />} />
+                    <Route path="/activation-success" element={<ActivationSuccess />} />
+                    <Route path="/activation-failed" element={<ActivationFailed />} />
 
                 </Routes>
             </BrowserRouter>
