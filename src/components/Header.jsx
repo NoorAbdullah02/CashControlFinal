@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X, ExternalLink, ArrowRight, Star, Sparkles, Zap, Shield } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -177,9 +178,11 @@ const Header = () => {
                             </div>
                             
                             <div className="flex flex-col">
+                                <Link to="/home">
                                 <span className="text-2xl font-black bg-gradient-to-r from-slate-800 via-emerald-700 to-teal-700 bg-clip-text text-transparent group-hover:from-emerald-600 group-hover:via-teal-600 group-hover:to-cyan-600 transition-all duration-700">
                                     Cash Control
                                 </span>
+                                </Link>
                                 <span className="text-sm text-slate-500 font-semibold -mt-1 group-hover:text-emerald-600 transition-colors duration-500 flex items-center gap-1">
                                     <Shield className="w-3 h-3" />
                                     Control Your Money

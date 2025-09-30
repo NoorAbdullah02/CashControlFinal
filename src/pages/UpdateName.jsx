@@ -6,6 +6,8 @@ import Header from "../components/Header.jsx";
 import axiosConfig from "../util/axiosConfig.jsx";
 import { API_ENDPOINTS } from "../util/apiEndpoints.js";
 import toast from "react-hot-toast";
+import Dashboard from "../components/Dashboard.jsx";
+
 
 const UpdateName = () => {
   const [fullName, setFullName] = useState("");

@@ -18,6 +18,7 @@ import uploadProfileImage from "../util/uploadProfileImage.js";
 import axiosConfig from "../util/axiosConfig.jsx";
 import { API_ENDPOINTS } from "../util/apiEndpoints.js";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const Menubar = ({ activeMenu }) => {
     const [openSideMenu, setOpenSideMenu] = useState(false);
@@ -151,9 +152,11 @@ const Menubar = ({ activeMenu }) => {
                         <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-xl blur-lg opacity-30"></div>
                         <img src={assets.logo} alt="logo" className="relative h-10 w-10 rounded-xl shadow-lg" />
                     </div>
+                    <Link to="/dashboard">
                     <span className="text-xl font-bold bg-gradient-to-r from-slate-800 to-blue-800 bg-clip-text text-transparent">
                         Cash Control
                     </span>
+                    </Link>
                 </div>
             </div>
 
