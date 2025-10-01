@@ -35,3 +35,7 @@ export const API_ENDPOINTS = {
     UPDATE_NAME:   `/profile/name`,
     UPDATE_IMAGE: `/profile/image`,
 }
+
+
+
+//`https://cash-control-final-api.onrender.com/api/v1.0/resend-activation?email=${encodeURIComponent(email)}`

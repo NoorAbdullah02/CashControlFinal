@@ -18,6 +18,7 @@ import UpdateProfileImage from "./pages/UpdateProfileImage.jsx";
 import EmailVerification from "./pages/EmailVerification.jsx";
 import ActivationSuccess from "./pages/ActivationSuccess.jsx";
 import ActivationFailed from "./pages/ActivationFailed.jsx";
+import ResendActivationPage from "./pages/ResendActivationPage.jsx";
 
 
 const App = () => {
@@ -45,6 +46,7 @@ const App = () => {
                     <Route path="/email-verification" element={<EmailVerification />} />
                     <Route path="/activation-success" element={<ActivationSuccess />} />
                     <Route path="/activation-failed" element={<ActivationFailed />} />
+                    <Route path="/resend-activation" element={<ResendActivationPage />} />
 
                 </Routes>
             </BrowserRouter>
